@@ -44,26 +44,29 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><img src="/images/spanakopita.jpg" alt="Σπανακόπιτα"><span>Σπανακόπιτα</span></td>
-              <td>Σπανακόπιτα</td>
-              <td>4€</td>
-            </tr>
-            <tr>
-              <td><img src="/images/manitaropita.jpg" alt="Μανιταρόπιτα"><span>Μανιταρόπιτα</span></td>
-              <td>Μανιταρόπιτα</td>
-              <td>5.5€</td>
-            </tr>
-            <tr>
-              <td><img src="/images/prasopita.jpg" alt="Πρασόπιτα"><span>Πρασόπιτα</span></td>
-              <td>Πρασόπιτα</td>
-              <td>3.5€</td>
-            </tr>
-            <tr>
-              <td><img src="/images/boureki.jpg" alt="Μπουρέκι"><span>Μπουρέκι</span></td>
-              <td>Μπουρέκι</td>
-              <td>4.5€</td>
-            </tr>
+          <tr>
+            <td><img th:src="@{/images/spanakopita.jpg}" alt="Σπανακόπιτα"><span>Σπανακόπιτα</span></td>
+            <td><a th:href="@{/pies/1}">Σπανακόπιτα</a></td>
+            <td>4€</td>
+          </tr>
+
+          <tr>
+            <td><img th:src="@{/images/manitaropita.jpg}" alt="Μανιταρόπιτα"><span>Μανιταρόπιτα</span></td>
+            <td><a th:href="@{/pies/2}">Μανιταρόπιτα</a></td>
+            <td>5.5€</td>
+          </tr>
+
+          <tr>
+            <td><img th:src="@{/images/prasopita.jpg}" alt="Πρασόπιτα"><span>Πρασόπιτα</span></td>
+            <td><a th:href="@{/pies/3}">Πρασόπιτα</a></td>
+            <td>3.5€</td>
+          </tr>
+
+          <tr>
+            <td><img th:src="@{/images/boureki.jpg}" alt="Μπουρέκι"><span>Μπουρέκι</span></td>
+            <td><a th:href="@{/pies/4}">Μπουρέκι</a></td>
+            <td>4.5€</td>
+          </tr>
           </tbody>
         </table>
       </article>
