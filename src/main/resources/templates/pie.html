@@ -36,7 +36,12 @@
 
         <div class="pie">
             <img th:src="@{'/images/' + ${pie.filename}}" th:alt="'Εικόνα - ' + ${pie.name}" />
-            <p>Υλικά: <span th:text="${pie.ingredients}"></span></p>
+            <p>Υλικά:
+                <th:block th:each="ingredient,iterStat: ${pie.ingredients}">
+                    <th:block th:if="${iterStat.index != iterStat.last}" th:text="${ingredient + ', '}"></th:block>
+                    <th:block th:unless="${iterStat.index != iterStat.last}" th:text="${ingredient}"></th:block>
+                </th:block>
+            </p>
             <p>Τιμή: <span th:text="${pie.price}"></span>&euro;</p>
         </div>
 
@@ -75,7 +80,7 @@
             <h3>Κοινωνική Ευθύνη</h3>
             <p>Καμία απολύτως</p>
         </div>
-        <div class="design"><p>Σχεδίαση: Psounitron Ltd.</p></div>
+        <div class="design"><p>Σχεδίαση: Nikwilldoit Ltd.</p></div>
     </footer>
 
 </div>

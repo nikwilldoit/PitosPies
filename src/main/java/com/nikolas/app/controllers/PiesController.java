@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/pies")
 public class PiesController {
 
-    @GetMapping()
-    public String handleRequest(){
-        return "pies";
-    }
+//    @GetMapping()
+//    public String handleRequest(){
+//        return "pies";
+//    }
 
     @GetMapping("/{id}")
     public String handleRequest(Model model , @PathVariable String id) {
@@ -21,4 +21,10 @@ public class PiesController {
         return "pie";
     }
 
+    @GetMapping()
+    public String handleRequest(Model model) {
+        Pie p = new Pie();
+        model.addAttribute("pies", p.getPies());
+        return "pies";
+    }
 }
