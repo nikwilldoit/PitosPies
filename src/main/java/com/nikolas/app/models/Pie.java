@@ -51,7 +51,7 @@ public class Pie {
         return pies;
     }
 
-    public String getIngredientsAsString() {
-        return String.join(", ", ingredients);
-    }
+//    public String getIngredientsAsString() {
+//        return String.join(", ", ingredients);
+//    }
 }

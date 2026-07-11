@@ -37,10 +37,7 @@
         <div class="pie">
             <img th:src="@{'/images/' + ${pie.filename}}" th:alt="'Εικόνα - ' + ${pie.name}" />
             <p>Υλικά:
-                <th:block th:each="ingredient,iterStat: ${pie.ingredients}">
-                    <th:block th:if="${iterStat.index != iterStat.last}" th:text="${ingredient + ', '}"></th:block>
-                    <th:block th:unless="${iterStat.index != iterStat.last}" th:text="${ingredient}"></th:block>
-                </th:block>
+                <th:block th:text="${#strings.arrayJoin(pie.ingredients, ', ')}"> </th:block>
             </p>
             <p>Τιμή: <span th:text="${pie.price}"></span>&euro;</p>
         </div>
