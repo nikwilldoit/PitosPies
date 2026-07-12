@@ -1,13 +1,26 @@
 <!DOCTYPE html>
-<html lang="en"
+<html lang="gr"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Nikolas</title>
-</head>
+<head th:replace="~{fragments/head :: head}"></head>
+
+
 <body>
-<h1>Pie</h1>
-<p> id= <span th:text="${id}"></span></p>
+<div class="container">
+    <header th:replace="~{fragments/header :: header(extended=false)}"></header>
+
+    <main>
+        <h1>Error <span th:text="${status}"></span></h1>
+        <p th:text="${message}"></p>
+
+        <aside th:replace="~{fragments/aside :: aside}"></aside>
+
+    </main>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</div>
 </body>
+
+
 </html>
