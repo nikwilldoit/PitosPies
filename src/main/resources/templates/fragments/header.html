@@ -1,7 +1,11 @@
 <header th:fragment="head(extended)">
 
-    <a class="logo" href="/static"><img src="/images/logo.png" alt="logo"/></a>
-    <h2 class="company"><a href="/static">Οι Πίτες του Πίτου</a></h2>
+    <a class="logo" th:href="@{/}">
+        <img src="/images/logo.png" alt="logo"/>
+    </a>
+    <h2 class="company">
+        <a th:href="@{/}">Οι Πίτες του Πίτου</a>
+    </h2>
     <p class="tagline">Πάρε μου μια ...πίτα!</p>
     <nav>
         <input class="hamb-checkbox" type="checkbox" id="checkbox"/>
@@ -11,10 +15,10 @@
             <span class="line3 hamb-line"></span>
         </label>
         <ul>
-            <li><a href="/store">Κατάστημα</a></li>
-            <li><a href="/pies">Πίτες</a></li>
-            <li><a href="/buy">Παραγγελία</a></li>
-            <li><a href="/contact">Επικοινωνία</a></li>
+            <li><a th:href="@{/store}">Κατάστημα</a></li>
+            <li><a th:href="@{/pies}">Πίτες</a></li>
+            <li><a th:href="@{/buy}">Παραγγελία</a></li>
+            <li><a th:href="@{/contact}">Επικοινωνία</a></li>
         </ul>
     </nav>
     <div th:if="(${extended})" class="extended-header">
