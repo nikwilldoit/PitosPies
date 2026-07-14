@@ -1,4 +1,8 @@
 <aside th:fragment="aside">
+    <div class="counters">
+        <p>Επισκέψεις Σελίδας: <span th:text="${pageVisits}"></span></p>
+        <p>Συνολικές Επισκέψεις: <span th:text="${@totalVisitsCounter.value}"></span></p>
+    </div>
     <div class="flipping-card">
         <div class="offer">
             <div class="image"><img th:src="@{/images/boureki.jpg}" /></div>

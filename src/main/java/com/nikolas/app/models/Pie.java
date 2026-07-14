@@ -16,7 +16,7 @@ public class Pie {
     private ArrayList<String> ingredients;
     private String filename;
 
-    public Pie getPie(int id){
+    public static Pie getPie(int id){
         switch (id){
             case 1:
                 ArrayList<String> ingr = new ArrayList<>();
@@ -43,7 +43,7 @@ public class Pie {
         return null;
     }
 
-    public ArrayList<Pie> getPies(){
+    public static ArrayList<Pie> getPies(){
         ArrayList<Pie> pies = new ArrayList<>();
         for(int i=1; i<5; i++){
             pies.add(getPie(i));
