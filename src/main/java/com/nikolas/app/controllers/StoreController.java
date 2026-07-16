@@ -1,6 +1,7 @@
 package com.nikolas.app.controllers;
 
 import com.nikolas.app.beans.Counter;
+import com.nikolas.app.services.VisitsMetricsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,13 +16,11 @@ public class StoreController {
     private int pageVisits = 0;
 
     @Autowired
-    private Counter totalVisitsCounter;
+    VisitsMetricsService visitsMetricsService;
 
     @GetMapping()
     public String handleRequest(Model model) {
-        pageVisits++;
-        totalVisitsCounter.increase();
-        model.addAttribute("pageVisits",  pageVisits);
+        visitsMetricsService.increaseCounters(model,++pageVisits);
         return "store";
     }
 }

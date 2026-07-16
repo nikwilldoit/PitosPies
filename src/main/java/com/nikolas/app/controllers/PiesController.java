@@ -2,6 +2,7 @@ package com.nikolas.app.controllers;
 
 import com.nikolas.app.beans.Counter;
 import com.nikolas.app.models.Pie;
+import com.nikolas.app.services.VisitsMetricsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,30 +17,25 @@ public class PiesController {
 //        return "pies";
 //    }
 
+    @Autowired
+    VisitsMetricsService visitsMetricsService;
+
     private int pageVisitsPies = 0;
 
-    private int pageVisitsPie = 0;
-
-    @Autowired
-    private Counter totalVisitsCounter;
-
-    @GetMapping("/{id}")
-    public String handleRequest(Model model , @PathVariable String id) {
-        pageVisitsPie++;
-        totalVisitsCounter.increase();
-        model.addAttribute("pageVisits",  pageVisitsPie);
-
-        model.addAttribute("pie", Pie.getPie(Integer.parseInt(id)));
-        return "pie";
-    }
 
     @GetMapping()
     public String handleRequest(Model model) {
-        pageVisitsPies++;
-        totalVisitsCounter.increase();
-        model.addAttribute("pageVisits",  pageVisitsPies);
+        visitsMetricsService.increaseCounters(model,++pageVisitsPies);
 
         model.addAttribute("pies", Pie.getPies());
         return "pies";
+    }
+
+    @GetMapping("/{id}")
+    public String handleRequest(Model model , @PathVariable Integer id) {
+        visitsMetricsService.increasePieCounter(model, id);
+
+        model.addAttribute("pie", Pie.getPie(id));
+        return "pie";
     }
 }
