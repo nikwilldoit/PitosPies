@@ -7,7 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
-    private int id;
-    private String name;
+public class Person {
+    Long id;
+    String firstname;
+    String lastname;
+    Integer salary;
+
 }
