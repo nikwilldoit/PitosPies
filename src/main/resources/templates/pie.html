@@ -14,8 +14,8 @@
 
         <div class="pie">
             <img th:src="@{'/images/' + ${pie.filename}}" th:alt="'Εικόνα - ' + ${pie.name}" />
-            <p>Υλικά: <th:block th:text="${#strings.listJoin(pie.ingredients, ', ')}"></th:block>
-            </p>
+<!--            <p>Υλικά: <th:block th:text="${#strings.listJoin(pie.ingredients, ', ')}"></th:block>-->
+<!--            </p>-->
             <p>Τιμή: <span th:text="${pie.price}"></span>&euro;</p>
         </div>
 

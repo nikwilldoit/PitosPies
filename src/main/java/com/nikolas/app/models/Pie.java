@@ -14,7 +14,7 @@ public class Pie {
     private String name;
     private double price;
     private String filename;
-    private ArrayList<String> ingredients;
+    //private ArrayList<String> ingredients;
 
 
 //    public String getIngredientsAsString() {
