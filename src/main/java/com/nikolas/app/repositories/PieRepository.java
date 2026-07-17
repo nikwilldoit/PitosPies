@@ -25,9 +25,9 @@ public class PieRepository {
 
     public Pie getPieById(int id) {
 
-        String sql = "SELECT * FROM pie WHERE id=" + id;
+        String sql = "SELECT * FROM pie WHERE id = ?";
 
-        List<Pie> pieEntities = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Pie.class));
-        return pieEntities.get(0);
+        Pie pie = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Pie.class), id);
+        return pie;
     }
 }
