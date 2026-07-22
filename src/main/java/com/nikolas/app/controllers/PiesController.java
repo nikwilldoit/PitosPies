@@ -1,7 +1,5 @@
 package com.nikolas.app.controllers;
 
-import com.nikolas.app.beans.Counter;
-import com.nikolas.app.models.Pie;
 import com.nikolas.app.repositories.PieRepository;
 import com.nikolas.app.services.VisitsMetricsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +29,7 @@ public class PiesController {
     public String handleRequest(Model model) {
         visitsMetricsService.increaseCounters(model,++pageVisitsPies);
 
-        model.addAttribute("pies", pieRepository.fildAll());
+        model.addAttribute("pies", pieRepository.findAll());
         return "pies";
     }
 
@@ -39,7 +37,7 @@ public class PiesController {
     public String handleRequest(Model model , @PathVariable Integer id) {
         visitsMetricsService.increasePieCounter(model, id);
 
-        model.addAttribute("pie", pieRepository.getPieById(id));
+        model.addAttribute("pie", pieRepository.findPiesById(id));
         return "pie";
     }
 }
