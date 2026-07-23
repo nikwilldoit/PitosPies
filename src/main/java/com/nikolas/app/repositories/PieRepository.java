@@ -1,6 +1,7 @@
 package com.nikolas.app.repositories;
 
 import com.nikolas.app.models.Pie;
+import com.nikolas.app.repositories.entities.Award;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,4 +12,5 @@ public interface PieRepository extends CrudRepository<Pie, Integer> {
 
     Pie findPiesById(int id);
 
+    List<Award> findAwardsByPieId(Integer id);
 }

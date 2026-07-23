@@ -1,5 +1,6 @@
 package com.nikolas.app.repositories.entities;
 
+import com.nikolas.app.models.Identity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +9,7 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.Set;
+import java.util.List;
 
 @Table
 @Data
@@ -24,10 +25,9 @@ public class Person {
     @Column("id")
     Identity identity;
 
-    @MappedCollection(idColumn = "person_id")
-    private Set<Car> cars;
+    @MappedCollection(idColumn = "pie_id", keyColumn = "order")
+    private List<Award> awards;
 
-    @MappedCollection(idColumn = "person_id", keyColumn = "order")
-    private Set<Degree> degrees;
-
+//    @MappedCollection(idColumn = "pie_id", keyColumn = "order")
+//    private Set<Award> awards;
 }

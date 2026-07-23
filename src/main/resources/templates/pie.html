@@ -2,28 +2,36 @@
 <html lang="gr"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/head :: head}"></head>
+<head th:replace="~{../fragments/head :: head}"></head>
 
 
 <body>
 <div class="container">
-    <header th:replace="~{fragments/header :: header(extended=false)}"> </header>
+    <header th:replace="~{../fragments/header :: header(extended=false)}"></header>
 
     <main>
         <h1 th:text="${pie.name}"></h1>
 
         <div class="pie">
             <img th:src="@{'/images/' + ${pie.filename}}" th:alt="'Εικόνα - ' + ${pie.name}" />
-<!--            <p>Υλικά: <th:block th:text="${#strings.listJoin(pie.ingredients, ', ')}"></th:block>-->
-<!--            </p>-->
+            <!--
+            <p>Υλικά: <th:block th:text="${#strings.listJoin(pie.ingredients, ', ')}"></th:block>
+            </p>
+            -->
+            <p th:if="${pie.awards.size()>0}">Βραβεία:
+            <ul>
+                <li th:each="award: ${pie.awards}" th:text="${award}">
+                </li>
+            </ul>
+            </p>
             <p>Τιμή: <span th:text="${pie.price}"></span>&euro;</p>
         </div>
 
-        <aside th:replace="~{fragments/aside :: aside}"></aside>
+        <aside th:replace="~{../fragments/aside :: aside}"></aside>
 
     </main>
 
-    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <footer th:replace="~{../fragments/footer :: footer}"></footer>
 
 </div>
 </body>

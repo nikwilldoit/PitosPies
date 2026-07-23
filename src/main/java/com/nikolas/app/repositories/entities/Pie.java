@@ -1,9 +1,10 @@
-package com.nikolas.app.models;
+package com.nikolas.app.repositories.entities;
 
-import com.nikolas.app.repositories.entities.Award;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,9 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table
 public class Pie {
+    @Id
     private int id;
     private String name;
     private double price;
