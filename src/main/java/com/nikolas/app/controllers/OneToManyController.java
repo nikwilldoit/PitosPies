@@ -19,7 +19,7 @@ public class OneToManyController {
 
     @GetMapping
     public String handleRequest() {
-        Person person = new Person(null, "Chloe", "O'Brien", 1000, null, null);
+        Person person = new Person(null, "Chloe", "O'Brien", 1000, null,null, null);
         Identity identity = new Identity(null, "AAAA1", "BBBB1");
         Set<Car> cars = Set.of(new Car(null, "Car 1"),new Car(null, "Car 2"),new Car(null, "Car 5"));
         person.setIdentity(identity);
