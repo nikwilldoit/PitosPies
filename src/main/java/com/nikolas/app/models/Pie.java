@@ -1,11 +1,9 @@
 package com.nikolas.app.models;
 
-import com.nikolas.app.repositories.entities.Award;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data

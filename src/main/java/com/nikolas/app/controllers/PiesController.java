@@ -2,7 +2,7 @@ package com.nikolas.app.controllers;
 
 import com.nikolas.app.models.Pie;
 import com.nikolas.app.repositories.PieRepository;
-import com.nikolas.app.repositories.entities.Award;
+import com.nikolas.app.models.Award;
 import com.nikolas.app.services.VisitsMetricsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
