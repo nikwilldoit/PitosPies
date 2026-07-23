@@ -14,10 +14,8 @@
 
         <div class="pie">
             <img th:src="@{'/images/' + ${pie.filename}}" th:alt="'Εικόνα - ' + ${pie.name}" />
-            <!--
             <p>Υλικά: <th:block th:text="${#strings.listJoin(pie.ingredients, ', ')}"></th:block>
             </p>
-            -->
             <p th:if="${pie.awards.size()>0}">Βραβεία:
             <ul>
                 <li th:each="award: ${pie.awards}" th:text="${award}">

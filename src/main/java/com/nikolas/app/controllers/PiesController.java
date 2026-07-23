@@ -1,5 +1,6 @@
 package com.nikolas.app.controllers;
 
+import com.nikolas.app.models.Ingredient;
 import com.nikolas.app.models.Pie;
 import com.nikolas.app.repositories.PieRepository;
 import com.nikolas.app.models.Award;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/pies")
@@ -41,7 +43,12 @@ public class PiesController {
     public String handleRequest(Model model , @PathVariable Integer id) {
         visitsMetricsService.increasePieCounter(model, id);
 
-        model.addAttribute("pie", pieRepository.findPiesById(id));
+        List<String> ingredients = pieRepository.findIngredientsOfPie(id);
+
+        Pie pie = pieRepository.findPiesById(id);
+        pie.setIngredients(ingredients);
+
+        model.addAttribute("pie", pie);
         return "pie";
     }
 }

@@ -4,10 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.web.servlet.tags.form.SelectTag;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Table("pie")
 @Data
@@ -19,10 +23,12 @@ public class Pie {
     private String name;
     private double price;
     private String filename;
-    //private ArrayList<String> ingredients;
 
     @MappedCollection(idColumn = "pie_id", keyColumn = "order")
     private List<Award> awards;
+
+    @Transient
+    private List<String> ingredients;
 
 
 //    public String getIngredientsAsString() {
