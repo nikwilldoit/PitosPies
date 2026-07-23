@@ -11,6 +11,4 @@ import java.util.List;
 public interface PieRepository extends CrudRepository<Pie, Integer> {
 
     Pie findPiesById(int id);
-
-    List<Award> findAwardsByPieId(Integer id);
 }

@@ -41,13 +41,6 @@ public class PiesController {
     public String handleRequest(Model model , @PathVariable Integer id) {
         visitsMetricsService.increasePieCounter(model, id);
 
-        Pie pie = pieRepository.findPiesById(id);
-
-        List<Award> awards = pieRepository.findAwardsByPieId(id);
-
-        pie.setAwards(awards);
-
-
         model.addAttribute("pie", pieRepository.findPiesById(id));
         return "pie";
     }
