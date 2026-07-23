@@ -13,4 +13,9 @@ public class Award {
     @Id
     Integer id;
     String name;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
