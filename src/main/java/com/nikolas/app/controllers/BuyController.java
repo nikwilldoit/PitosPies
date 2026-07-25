@@ -1,6 +1,5 @@
 package com.nikolas.app.controllers;
 
-import com.nikolas.app.beans.Counter;
 import com.nikolas.app.services.VisitsMetricsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
