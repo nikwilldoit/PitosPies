@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Psounis Spring Tutorial</title>
+</head>
+<body>
+    <p th:if="${failed}">No such product!</p>
+    <p th:unless="${failed}">Removed <span th:text="${product}"></span> from the cart! </p>
+</body>
+</html>
