@@ -1,5 +1,6 @@
 package com.nikolas.app.repositories;
 
+import com.nikolas.app.beans.SessionBean;
 import com.nikolas.app.models.Pie;
 import com.nikolas.app.models.User;
 import org.springframework.data.jdbc.repository.query.Query;
@@ -14,4 +15,5 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     User findUserByUsernameAndPassword(String username, String password);
 
+    User findUserBySession(String session);
 }
