@@ -12,11 +12,6 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     User findUserByUsername(String username);
 
+    User findUserByUsernameAndPassword(String username, String password);
 
-//    @Query("SELECT ingredient.name AS name " +
-//            "FROM ingredient " +
-//            "    JOIN pie_ingredient ON ingredient.id = pie_ingredient.ingredient_id " +
-//            "    JOIN pie ON pie_ingredient.pie_id = pie.id " +
-//            "WHERE pie.id=:pie_id")
-//    List<String> findIngredientsOfPie(@Param("pie_id") int id);
 }

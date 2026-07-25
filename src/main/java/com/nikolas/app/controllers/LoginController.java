@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/register")
-public class RegisterController {
+@RequestMapping("/login")
+public class LoginController {
 
     @Autowired
     private AuthService authService;
@@ -24,4 +24,3 @@ public class RegisterController {
         return "message";
     }
 }
-
