@@ -68,7 +68,6 @@ public class AuthController {
         if (!authService.activeSession()) {
             message = "You have to login!";
 
-            // START: EXERCISE 3
             if (!sessionCookie.equals("missing")){
                 System.out.println(sessionCookie);
                 User user = userRepository.findUserBySession(sessionCookie);
@@ -80,7 +79,6 @@ public class AuthController {
                     message = sessionBean.getUser().getUsername() + "'s Resource";
                 }
             }
-            // END: EXERCISE 3
         }
         else {
             message = sessionBean.getUser().getUsername() + "'s Resource";
