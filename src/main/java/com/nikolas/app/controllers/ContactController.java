@@ -22,22 +22,17 @@ public class ContactController {
 
     @GetMapping()
     public String handleRequest(Model model) {
-        FormDataContact formDataContact = new FormDataContact();
         visitsMetricsService.increaseCounters(model,++pageVisits);
 
-        model.addAttribute("formDataContact", formDataContact);
+        model.addAttribute("formDataContact", new FormDataContact());
         return "contact";
     }
 
     @PostMapping()
     public String handleRequest(Model model, @ModelAttribute("formDataContact") FormDataContact formDataContact) {
-        if(!model.asMap().isEmpty()){
-            System.out.println(model.asMap().values());
-            model.addAttribute("success", true);
-        }
-        else{
-            model.addAttribute("success", false);
-        }
+        System.out.println(formDataContact);
+
+        model.addAttribute("success", true);
 
         return "contact";
     }
