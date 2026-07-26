@@ -2,34 +2,47 @@
 <html lang="gr"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/head :: head}"> </head>
+<head th:replace="~{fragments/head :: head}"></head>
+
 
 <body>
-  <div class="container">
-    <header th:replace="~{fragments/header :: header(extended=false)}"> </header>
+<div class="container">
+  <header th:replace="~{fragments/header :: header(extended=false)}"></header>
 
-    <main>
-      <h1>Επικοινωνία</h1>
-      <article>
-        <form action="/sendData" method="GET" class="form contact">
+  <main>
+    <h1>Επικοινωνία</h1>
+
+    <th:block th:switch="${success}">
+      <article th:case="${true}">
+        <div class="success-message">
+          Παραλάβαμε το μήνυμα σας, θα επικοινωνήσουμε μαζί σας σύντομα!
+        </div>
+      </article>
+
+
+      <article th:case="*">
+        <form th:action="@{'/contact'}" th:object="${formDataContact}" method="POST" class="form contact">
           <label for="txtName">  Ονοματεπώνυμο(*):</label>
-          <input type="text" id="txtName" name="name" minlength="3" maxlength="40" size="40" required>
+          <input type="text" id="txtName" minlength="3" maxlength="40" size="40" required th:field="*{fullname}">
           <label for="txtEmail">E-mail(*): </label>
-          <input type="email" id="txtEmail" name="email" size="40" required>
+          <input type="email" id="txtEmail" size="40" required th:field="*{email}">
           <label for="txtTel">Τηλέφωνο: </label>
-          <input type="tel" id="txtTel" name="phone" size="15">
+          <input type="tel" id="txtTel" size="15" th:field="*{tel}">
           <label for="txtMessage">Μήνυμα(*): </label>
-          <textarea id="txtMessage" name="message" rows="6" cols="40" required></textarea>
+          <textarea id="txtMessage" rows="6" cols="40" required th:field="*{message}"></textarea>
           <span>(*) Τα πεδία είναι υποχρεωτικά</span>
           <input type="submit" value="Αποστολή">
         </form>
       </article>
 
-      <aside th:replace="~{fragments/aside :: aside}"> </aside>
-    </main>
+    </th:block>
 
-    <footer th:replace="~{fragments/footer :: footer}"></footer>
-  </div>
+    <aside th:replace="~{fragments/aside :: aside}"></aside>
+
+  </main>
+
+  <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
 </body>
 
 
