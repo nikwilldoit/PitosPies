@@ -1,5 +1,6 @@
 package com.nikolas.app.config;
 
+import com.nikolas.app.beans.Cart;
 import com.nikolas.app.beans.SessionBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,5 +25,11 @@ public class AppConfig {
     @Bean
     public SessionBean sessionBean(){
         return new SessionBean();
+    }
+
+    @SessionScope
+    @Bean
+    public Cart cart(){
+        return new Cart();
     }
 }
