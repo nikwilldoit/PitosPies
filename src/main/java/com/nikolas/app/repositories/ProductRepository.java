@@ -1,0 +1,13 @@
+package com.nikolas.app.repositories;
+
+import com.nikolas.app.models.Pie;
+import com.nikolas.app.models.Product;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ProductRepository extends CrudRepository<Pie, Integer> {
+
+    Product findProductById(int id);
+
+}
