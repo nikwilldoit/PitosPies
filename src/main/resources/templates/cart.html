@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Psounis Spring Tutorial</title>
+</head>
+<body>
+<h1> The Cart </h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Προϊόν</th>
+        <th>Τεμάχια</th>
+        <th>Τιμή / Τμχ</th>
+        <th>Συνολική Τιμή</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cartItem: ${@cart.cart}">
+        <td th:text="${cartItem.key.name}"></td>
+        <td th:text="${cartItem.value}"></td>
+        <td th:text="${cartItem.key.price}"></td>
+        <td th:text="${cartItem.key.price * cartItem.value}"></td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="4" th:text="${'Σύνολο: ' + totalPrice}"></td>
+    </tr>
+    </tfoot>
+</table>
+</body>
+</html>
