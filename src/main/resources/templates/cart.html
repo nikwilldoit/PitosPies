@@ -20,14 +20,27 @@
     <tbody>
     <tr th:each="cartItem: ${@cart.cart}">
         <td th:text="${cartItem.key.name}"></td>
-        <td th:text="${cartItem.value}"></td>
+        <td>
+            <form th:action="@{'/cart/set'}" method="POST">
+                <input type="hidden" name="productId" th:value="${cartItem.key.id}">
+                <input type="number" minlength="1" maxlength="10" name="quantity"  th:value="${cartItem.value}">
+                <input type="submit" value="Ενημέρωση">
+            </form>
+        </td>
         <td th:text="${cartItem.key.price}"></td>
-        <td th:text="${cartItem.key.price * cartItem.value}"></td>
+        <td th:text="${#numbers.formatDecimal(cartItem.key.price * cartItem.value, 1, 2)}"></td>
+
+        <td>
+            <form th:action="@{'/cart/remove'}" method="POST">
+                <input type="hidden" name="productId" th:value="${cartItem.key.id}">
+                <input type="submit" value="Διαγραφή">
+            </form>
+        </td>
     </tr>
     </tbody>
     <tfoot>
     <tr>
-        <td colspan="4" th:text="${'Σύνολο: ' + totalPrice}"></td>
+        <td colspan="4" th:text="${'Σύνολο: ' + #numbers.formatDecimal(totalPrice, 1, 2)}"></td>
     </tr>
     </tfoot>
 </table>

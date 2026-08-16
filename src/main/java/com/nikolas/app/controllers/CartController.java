@@ -32,6 +32,26 @@ public class CartController {
         return "redirect:/cart";
     }
 
+    @PostMapping("/cart/set")
+    public String handleRequest(Model model, @ModelAttribute("productId") Integer productId, @ModelAttribute("quantity") Integer quantity) {
+
+        Product product = productRepository.findProductById(productId);
+        cart.getCart().put(product, quantity);
+
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/cart/remove")
+    public String handleRequest2(Model model, @ModelAttribute("productId") Integer productId) {
+
+        Product product = productRepository.findProductById(productId);
+        cart.getCart().remove(product);
+
+        return "redirect:/cart";
+    }
+
+
+
     @GetMapping("/cart")
     public String handleRequest(Model model) {
 
