@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MessageConstraint {
-    String message() default "Μη έγκυρο τηλέφωνο";
+    String message() default "Το μήνυμα πρέπει να έχει απο 5 έως 100 χαρακτήρες αυστηρά";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

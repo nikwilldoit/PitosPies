@@ -25,12 +25,20 @@
         <form th:action="@{'/contact'}" th:object="${formDataContact}" method="POST" class="form contact">
           <label for="txtName">  Ονοματεπώνυμο(*):</label>
           <input type="text" id="txtName" minlength="3" maxlength="40" size="40" required th:field="*{fullname}">
+          <p class="error-message" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}"></p>
+
           <label for="txtEmail">E-mail(*): </label>
           <input type="email" id="txtEmail" size="40" required th:field="*{email}">
+          <p class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+
           <label for="txtTel">Τηλέφωνο: </label>
           <input type="tel" id="txtTel" size="15" th:field="*{tel}">
+          <p class="error-message" th:if="${#fields.hasErrors('tel')}" th:errors="*{tel}"></p>
+
           <label for="txtMessage">Μήνυμα(*): </label>
           <textarea id="txtMessage" rows="6" cols="40" required th:field="*{message}"></textarea>
+          <p class="error-message" th:if="${#fields.hasErrors('message')}" th:errors="*{message}"></p>
+
           <span>(*) Τα πεδία είναι υποχρεωτικά</span>
           <input type="submit" value="Αποστολή">
         </form>

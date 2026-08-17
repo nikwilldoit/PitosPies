@@ -884,6 +884,10 @@ form.contact {
     grid-template-columns: min-content 1fr;
     max-width: 700px;
   }
+  form.contact p {
+    grid-column-start: 1;
+    grid-column-end: -1;
+  }
 }
 form.buy section {
   row-gap: 8px;
@@ -940,6 +944,25 @@ form.buy div.buttons input {
   form.buy div.buttons {
     grid-area: buttons;
   }
+}
+.error-message {
+  width: 90%;
+  margin: 0 auto 5px auto;
+  border-left: #33000a 10px solid;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 1px 1px rgba(255, 153, 172, 0.2);
+  background-color: #ff99ac;
+}
+
+.success-message {
+  width: 90%;
+  margin: 50px auto;
+  border-left: #053300 10px solid;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 1px 1px rgba(163, 255, 153, 0.2);
+  background-color: #a3ff99;
 }
 
 /*# sourceMappingURL=style.css.map */

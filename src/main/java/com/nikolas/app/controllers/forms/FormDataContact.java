@@ -1,5 +1,7 @@
 package com.nikolas.app.controllers.forms;
 
+import com.nikolas.app.controllers.forms.custom_validators.MessageConstraint;
+import com.nikolas.app.controllers.forms.custom_validators.MessageValidator;
 import com.nikolas.app.controllers.forms.custom_validators.TelephoneConstraint;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -23,11 +25,6 @@ public class FormDataContact {
     @TelephoneConstraint
     String tel;
 
-    @NotNull
-    @NotEmpty
-    @Min(5)
-    @Max(100)
-    @Size(min = 5, max = 100, message = "Το μήνυμα πρέπει να περιέχει τουλάχιστον 5 χαρακτήρες")
+    @MessageConstraint
     String message;
-
 }
