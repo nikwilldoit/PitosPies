@@ -10,10 +10,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FormDataContact {
+public class FormDataOrder {
+
     @NotNull (message = "Το ονοματεπώνυμο πρέπει να μην είναι null")
     @NotEmpty (message = "Το ονοματεπώνυμο πρέπει να μην είναι κενό")
     private String fullname;
+
+    private String address;
 
     @NotNull (message = "Το e-mail πρέπει να μην είναι null")
     @NotEmpty (message = "To e-mail πρέπει να μην είναι κενό")
@@ -21,8 +24,18 @@ public class FormDataContact {
     private String email;
 
     @TelephoneConstraint
-    String tel;
+    private String tel;
 
-    @MessageConstraint
-    String message;
+    @NotNull
+    @NotEmpty
+    private String comments;
+
+    @NotNull
+    @NotEmpty
+    private boolean offer;
+
+    @NotNull
+    @NotEmpty
+    private String payment;
+
 }
