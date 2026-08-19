@@ -2,41 +2,72 @@
 <html lang="gr"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/head :: head}"> </head>
+<head th:replace="~{../fragments/head :: head}"></head>
+
 
 <body>
-  <div class="container">
-    <header th:replace="~{fragments/header :: header(extended=false)}"> </header>
+<div class="container">
+  <header th:replace="~{../fragments/header :: header(extended=false)}"></header>
 
-    <main>
-      <h1>Οι Πίτες</h1>
-      <article>
-        <h2>Οι πίτες μας στο χώρο σας! </h2>
-        <p>
-          Ωράριο λήψης παραγγελιών (18:00-22:00)
-        </p>
-        <form action="/sendData" method="GET" class="form buy">
+  <main>
+    <h1>Οι Πίτες</h1>
+    <article>
+      <h2>Οι πίτες μας στο χώρο σας! </h2>
+      <p>
+        Ωράριο λήψης παραγγελιών (18:00-22:00)
+      </p>
+
+      <th:block th:if="${success}">
+        <div class="success-message">
+          Παραλάβαμε το μήνυμα σας, θα επικοινωνήσουμε μαζί σας σύντομα!
+        </div>
+      </th:block>
+
+
+      <th:block th:unless="${success}">
+
+        <form th:action="@{'/buy'}" th:object="${formDataOrder}" method="POST" class="form buy">
+
+          <div class="error-message"  th:if="${#fields.hasErrors()}">
+            <p>Η φόρμα περιέχει τα εξής λάθη:</p>
+            <ul>
+              <li th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}"></li>
+              <li th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></li>
+              <li th:if="${#fields.hasErrors('areaId')}" th:errors="*{areaId}"></li>
+              <li th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></li>
+              <li th:if="${#fields.hasErrors('tel')}" th:errors="*{tel}"></li>
+              <li th:if="${#fields.hasErrors('comments')}" th:errors="*{comments}"></li>
+              <li th:if="${#fields.hasErrors('order')}" th:errors="*{order}"></li>
+              <li th:if="${#fields.hasErrors('offer')}" th:errors="*{offer}"></li>
+              <li th:if="${#fields.hasErrors('payment')}" th:errors="*{payment}"></li>
+              <li th:if="${#fields.hasErrors('timestamp')}" th:errors="*{timestamp}"></li>
+            </ul>
+          </div>
+
           <section class="customer-info">
             <h3>
               Πληροφορίες Παράδοσης:
             </h3>
             <label for="txtName">Ονοματεπώνυμο(*):</label>
-            <input type="text" id="txtName" name="name" minlength="3" maxlength="40" size="40" required>
+            <input type="text" id="txtName" minlength="3" maxlength="40" size="40" required th:field="*{fullname}">
+
             <label for="txtAddress">Διεύθυνση(Οδός - Αριθμός)(*):</label>
-            <input type="text" id="txtAddress" name="name" minlength="5" maxlength="40" size="40" required>
+            <input type="text" id="txtAddress" minlength="5" maxlength="40" size="40" required th:field="*{address}">
+
             <label for="slRegion"> Περιοχή(*):</label>
-            <select id="slRegion" name="region" required>
-              <option value="ambelokipoi" selected>Αμπελόκηποι</option>
-              <option value="papagou">Παπάγου</option>
-              <option value="center">Κέντρο Αθήνας</option>
-              <option value="zografou">Ζωγράφου</option>
+            <select id="slRegion" th:field="*{areaId}" required>
+              <option th:each="area: ${areas}" th:text="${area.description}" th:value="${area.id}"
+                      th:selected="${#strings.equals(formDataOrder.areaId, area.id)}"></option>
             </select>
+
             <label for="txtEmail">E-mail: </label>
-            <input type="email" id="txtEmail" name="email" size="40">
+            <input type="email" id="txtEmail" size="40" th:field="*{email}">
+
             <label for="txtTel">Τηλέφωνο(*): </label>
-            <input type="tel" id="txtTel" name="phone" size="15" required>
+            <input type="tel" id="txtTel" size="15" required th:field="*{tel}">
+
             <label for="txtMessage">Ειδικές Πληροφορίες για την παράδοση: </label>
-            <textarea id="txtMessage" name="message" rows="6" cols="40"></textarea>
+            <textarea id="txtMessage" rows="6" cols="40" th:field="*{comments}"></textarea>
             <span>(*) Τα πεδία είναι υποχρεωτικά</span>
           </section>
 
@@ -44,15 +75,13 @@
             <h3>
               Παραγγελία:
             </h3>
-            <label for="txtSpanakopita">Σπανακόπιτες: </label>
-            <input type="number" id="txtSpanakopita" name="OrderSpanakopites" min="0" max="100" value="0">
-            <label for="txtManitaropita">Μανιταρόπιτες: </label>
-            <input type="number" id="txtManitaropita" name="OrderManitaropites" min="0" max="100" value="0">
-            <label for="txtPrasopita">Μανιταρόπιτες: </label>
-            <input type="number" id="txtPrasopita" name="OrderPrasopites" min="0" max="100" value="0">
-            <label for="txtBoureki">Μπουρέκια: </label>
-            <input type="number" id="txtBoureki" name="OrderBourekia" min="0" max="100" value="0">
-            <input type="checkbox" id="chkΟffer1" name="offer1" value="offer1-on" >
+
+            <th:block th:each="pie: ${pies}">
+              <label th:for="${'txt' + pie.id}" th:text="${pie.name}"></label>
+              <input type="number" th:id="${'txt' + pie.id}" th:field="*{order[__${pie.id}__]}" min="0" max="100">
+            </th:block>
+
+            <input type="checkbox" id="chkΟffer1" th:field="*{offer}">
             <label for="chkΟffer1">Ενσωμάτωση προσφοράς στις 10 η 1 πίτα δώρο</label>
           </section>
 
@@ -61,11 +90,11 @@
               Τρόπος Πληρωμής:
             </h3>
             <div class="radio-buttons">
-              <input type="radio" id="rdVISA" name="payment" value="visa">
+              <input type="radio" id="rdVISA" th:field="*{payment}" value="visa">
               <label for="rdVISA">VISA</label>
-              <input type="radio" id="rdCash" name="payment" value="cash" checked>
+              <input type="radio" id="rdCash" th:field="*{payment}" value="cash" checked>
               <label for="rdCash">Μετρητά</label>
-              <input type="radio" id="rdSpecial" name="payment" value="special">
+              <input type="radio" id="rdSpecial" th:field="*{payment}" value="special">
               <label for="rdSpecial">Είδος</label>
             </div>
           </section>
@@ -75,13 +104,16 @@
             <input type="reset" value="Καθαρισμός">
           </div>
         </form>
-      </article>
+      </th:block>
 
-      <aside th:replace="~{fragments/aside :: aside}"> </aside>
-    </main>
+    </article>
 
-    <footer th:replace="~{fragments/footer :: footer}"></footer>
-  </div>
+    <aside th:replace="~{../fragments/aside :: aside}"></aside>
+
+  </main>
+
+  <footer th:replace="~{../fragments/footer :: footer}"></footer>
+</div>
 </body>
 
 

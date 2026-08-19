@@ -1,24 +1,80 @@
 package com.nikolas.app.controllers;
 
+import com.nikolas.app.components.SessionData;
+import com.nikolas.app.controllers.forms.FormDataContact;
+import com.nikolas.app.controllers.forms.FormDataOrder;
+import com.nikolas.app.models.Area;
+import com.nikolas.app.models.Pie;
+import com.nikolas.app.repositories.AreaRepository;
+import com.nikolas.app.repositories.PieRepository;
 import com.nikolas.app.services.VisitsMetricsService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 @RequestMapping("/buy")
 public class BuyController {
 
-    private int pageVisits = 0;
+    @Autowired
+    private VisitsMetricsService visitsMetricsService;
 
     @Autowired
-    VisitsMetricsService visitsMetricsService;
+    private AreaRepository areaRepository;
+    @Autowired
+    private PieRepository pieRepository;
 
-    @GetMapping()
+    @Autowired
+    private SessionData sessionData;
+
+
+    private int pageVisits = 0;
+
+    @GetMapping
     public String handleRequest(Model model) {
-        visitsMetricsService.increaseCounters(model,++pageVisits);
+        visitsMetricsService.increaseCounters(model, ++pageVisits);
+
+        List<Area> areas = (List<Area>) areaRepository.findAll();
+        List<Pie> pies = (List<Pie>) pieRepository.findAll();
+        model.addAttribute("areas", areas);
+        model.addAttribute("pies", pies);
+
+        FormDataOrder formDataOrder = new FormDataOrder();
+        formDataOrder.setOrder(sessionData.getOrder());
+        model.addAttribute("formDataOrder", formDataOrder);
+
         return "buy";
     }
+
+    @PostMapping
+    public String handleRequest(Model model, @Valid @ModelAttribute("formDataOrder") FormDataOrder formDataOrder,
+                                BindingResult bindingResult) {
+        visitsMetricsService.increaseCounters(model, ++pageVisits);
+
+        // get the current timestamp
+        formDataOrder.setStamp(LocalDateTime.now());
+
+        // check for errors
+        if (!bindingResult.hasErrors()) {
+            model.addAttribute("success", true);
+        }
+
+        // send the data
+        List<Area> areas = (List<Area>) areaRepository.findAll();
+        List<Pie> pies = (List<Pie>) pieRepository.findAll();
+        model.addAttribute("areas", areas);
+        model.addAttribute("pies", pies);
+
+        return "buy";
+    }
+
 }

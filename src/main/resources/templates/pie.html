@@ -23,6 +23,17 @@
             </ul>
             </p>
             <p>Τιμή: <span th:text="${pie.price}"></span>&euro;</p>
+
+            <form th:action="@{'/pies/' + ${pie.id}}" method="POST" class="form buy">
+                <label for="num">Προσθήκη στην Παραγγελία: </label>
+                <input type="number" id="num" min="0" max="100" name="quantity" th:value="${@sessionData.getOrder().get(pie.id)}">
+
+                <div class="buttons">
+                    <input type="submit" value="Αποστολή">
+                    <input type="reset" value="Καθαρισμός">
+                </div>
+            </form>
+
         </div>
 
         <aside th:replace="~{fragments/aside :: aside}"></aside>

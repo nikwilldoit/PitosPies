@@ -1,10 +1,13 @@
 package com.nikolas.app.controllers;
 
+import com.nikolas.app.components.SessionData;
+import com.nikolas.app.controllers.forms.FormDataOrder;
 import com.nikolas.app.models.Ingredient;
 import com.nikolas.app.models.Pie;
 import com.nikolas.app.repositories.PieRepository;
 import com.nikolas.app.models.Award;
 import com.nikolas.app.services.VisitsMetricsService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +33,8 @@ public class PiesController {
     @Autowired
     PieRepository pieRepository;
 
+    @Autowired
+    private SessionData sessionData;
 
     @GetMapping()
     public String handleRequest(Model model) {
@@ -43,12 +48,20 @@ public class PiesController {
     public String handleRequest(Model model , @PathVariable Integer id) {
         visitsMetricsService.increasePieCounter(model, id);
 
-        List<String> ingredients = pieRepository.findIngredientsOfPie(id);
 
         Pie pie = pieRepository.findPiesById(id);
-        pie.setIngredients(ingredients);
+        pie.setIngredients(pieRepository.findIngredientsOfPie(id));
 
         model.addAttribute("pie", pie);
         return "pie";
+    }
+
+    @PostMapping("/{id}")
+    public String handleRequest(Model model , @PathVariable Integer id, @RequestParam Integer quantity) {
+
+        sessionData.getOrder().put(id,quantity);
+        System.out.println(sessionData.getOrder());
+
+        return "redirect:/buy";
     }
 }
