@@ -2,12 +2,12 @@
 <html lang="gr"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{../fragments/head :: head}"></head>
+<head th:replace="~{fragments/head :: head}"></head>
 
 
 <body>
 <div class="container">
-  <header th:replace="~{../fragments/header :: header(extended=false)}"></header>
+  <header th:replace="~{fragments/header :: header(extended=false)}"></header>
 
   <main>
     <h1>Οι Πίτες</h1>
@@ -40,7 +40,8 @@
               <li th:if="${#fields.hasErrors('order')}" th:errors="*{order}"></li>
               <li th:if="${#fields.hasErrors('offer')}" th:errors="*{offer}"></li>
               <li th:if="${#fields.hasErrors('payment')}" th:errors="*{payment}"></li>
-              <li th:if="${#fields.hasErrors('timestamp')}" th:errors="*{timestamp}"></li>
+<!--              dixnei thn wra-->
+              <li th:if="${#fields.hasErrors('timestamp')}" th:errors="*{stamp}"></li>
             </ul>
           </div>
 
@@ -108,11 +109,11 @@
 
     </article>
 
-    <aside th:replace="~{../fragments/aside :: aside}"></aside>
+    <aside th:replace="~{fragments/aside :: aside}"></aside>
 
   </main>
 
-  <footer th:replace="~{../fragments/footer :: footer}"></footer>
+  <footer th:replace="~{fragments/footer :: footer}"></footer>
 </div>
 </body>
 

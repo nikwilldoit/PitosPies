@@ -1,5 +1,6 @@
 package com.nikolas.app.controllers;
 
+import com.nikolas.app.components.EmailTemplates;
 import com.nikolas.app.components.SessionData;
 import com.nikolas.app.controllers.forms.FormDataContact;
 import com.nikolas.app.controllers.forms.FormDataOrder;
@@ -8,6 +9,7 @@ import com.nikolas.app.models.Pie;
 import com.nikolas.app.repositories.AreaRepository;
 import com.nikolas.app.repositories.PieRepository;
 import com.nikolas.app.services.VisitsMetricsService;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -35,6 +38,9 @@ public class BuyController {
 
     @Autowired
     private SessionData sessionData;
+
+    @Autowired
+    private EmailTemplates emailTemplates;
 
 
     private int pageVisits = 0;
@@ -57,7 +63,7 @@ public class BuyController {
 
     @PostMapping
     public String handleRequest(Model model, @Valid @ModelAttribute("formDataOrder") FormDataOrder formDataOrder,
-                                BindingResult bindingResult) {
+                                BindingResult bindingResult) throws IOException, MessagingException {
         visitsMetricsService.increaseCounters(model, ++pageVisits);
 
         // get the current timestamp
@@ -66,6 +72,12 @@ public class BuyController {
         // check for errors
         if (!bindingResult.hasErrors()) {
             model.addAttribute("success", true);
+
+            //pros ton diaxeiristi tou pitospies
+            emailTemplates.sendEmailToAdminOrderForm(formDataOrder, sessionData.getOrder());
+
+            //pros ton user pu sumplirwnei thn form
+            emailTemplates.sendEmailToClientOrderForm(formDataOrder, sessionData.getOrder());
         }
 
         // send the data
@@ -73,6 +85,8 @@ public class BuyController {
         List<Pie> pies = (List<Pie>) pieRepository.findAll();
         model.addAttribute("areas", areas);
         model.addAttribute("pies", pies);
+
+        System.out.println(pies);
 
         return "buy";
     }

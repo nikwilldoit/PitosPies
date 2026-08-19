@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface PieRepository extends CrudRepository<Pie, Integer> {
 
-    Pie findPiesById(int id);
+    Pie findPieById(int id);
 
     @Query("SELECT ingredient.name AS name " +
             "FROM ingredient " +

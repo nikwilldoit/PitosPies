@@ -51,5 +51,4 @@ public class FormDataOrder {
 
     @OrderTimestampConstraint(message = "Η παραγγελία μπορεί να γίνει μόνο από 18:00 έως 22:00")
     LocalDateTime stamp;
-
 }

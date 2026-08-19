@@ -49,7 +49,7 @@ public class PiesController {
         visitsMetricsService.increasePieCounter(model, id);
 
 
-        Pie pie = pieRepository.findPiesById(id);
+        Pie pie = pieRepository.findPieById(id);
         pie.setIngredients(pieRepository.findIngredientsOfPie(id));
 
         model.addAttribute("pie", pie);
