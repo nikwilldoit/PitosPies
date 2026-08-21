@@ -66,6 +66,9 @@ public class BuyController {
                                 BindingResult bindingResult) throws IOException, MessagingException {
         visitsMetricsService.increaseCounters(model, ++pageVisits);
 
+        // session data needs updating with form changes
+        sessionData.setOrder(formDataOrder.getOrder());
+
         // get the current timestamp
         formDataOrder.setStamp(LocalDateTime.now());
 
