@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
+
+import java.util.List;
 
 @Table("user")
 @Data
@@ -12,8 +15,11 @@ import org.springframework.data.relational.core.mapping.Table;
 @NoArgsConstructor
 public class User {
     @Id
-    Integer id;
+    int id;
     String username;
     String password;
     String session;
+
+    @Transient
+    private List<String> roles;
 }

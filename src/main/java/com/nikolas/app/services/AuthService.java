@@ -1,81 +1,61 @@
 package com.nikolas.app.services;
 
-import com.nikolas.app.beans.SessionBean;
-import com.nikolas.app.models.User;
+import com.nikolas.app.repositories.RoleRepository;
 import com.nikolas.app.repositories.UserRepository;
-import jakarta.servlet.http.HttpSession;
+import com.nikolas.app.models.Role;
+import com.nikolas.app.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Service
-public class AuthService {
+public class AuthService implements UserDetailsService {
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
-    SessionBean sessionBean;
+    public PasswordEncoder passwordEncoder;
 
-    @Autowired
-    UserRepository userRepository;
 
-    public boolean activeSession() {
-        if (sessionBean.getUser()==null)
-            return false;
-        else if (sessionBean.getUser().getSession()==null)
-            return false;
-
-        return true;
-    }
-
-    public String registerUser(String username, String password){
-
-        String message;
-
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findUserByUsername(username);
-        if(user!=null){
-            message = "User "+ userRepository.findUserByUsername(username).getUsername() +" already exists!";
+
+        if (user == null) {
+            throw new UsernameNotFoundException("Invalid username or password.");
         }
-        else{
-            message = "User "+ username +" just registered!";
-            userRepository.save(new User(null, username, password, null));
-        }
-        return message;
+
+        user.setRoles(userRepository.findUserRoles(user.getId()));
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(),
+                user.getPassword(),
+                getAuthorities(user.getRoles())
+        );
     }
 
-    public String loginUser(HttpSession session, String username, String password){
-        String message;
-
-        if (activeSession()) {
-            message = "You are logged in!";
-        }
-        else {
-            User user = userRepository.findUserByUsernameAndPassword(username, password);
-            if (user != null) {
-                message = "User " + userRepository.findUserByUsernameAndPassword(username, password).getUsername() + " just logged in!";
-                user.setSession(session.getId());
-
-                userRepository.save(user);
-                sessionBean.setUser(user);
-            }
-            else {
-                message = "Wrong Credentials";
-            }
-        }
-        return message;
+    public void registerUser(User user) {
+        Role role = roleRepository.findRoleByName("USER");
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        userRepository.saveWithRole(user, role);
     }
 
-    public String logoutUser() {
-        String message;
-
-        if (!activeSession()) {
-            message = "You are not logged in!";
-        }
-        else {
-            User user = sessionBean.getUser();
-            user.setSession(null);
-            userRepository.save(user);
-            message = "You logged out!";
-        }
-
-        return message;
+    private Collection<? extends GrantedAuthority> getAuthorities(Collection<String> roles) {
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                .collect(Collectors.toList());
     }
 }

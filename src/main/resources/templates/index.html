@@ -1,27 +1,30 @@
 <!DOCTYPE html>
-<html lang="gr"
+<html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/head :: head}"> </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Psounis Spring Tutorial</title>
 
-
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
 <body>
-<div class="container">
-    <header th:replace="~{fragments/header :: header(extended=true)}"> </header>
 
-    <main>
-        <h1>Αρχική Σελίδα</h1>
-        <article>
-            <h2>Φωτογραφία</h2>
-            <p>Καλωσόρισμα</p>
-        </article>
+    <h1>Μάθημα 8.1: Custom Form Auth</h1>
 
-        <aside th:replace="~{fragments/aside :: aside}"> </aside>
-    </main>
+    <div class="slide">
+        <h2>Links:</h2>
+        <ul>
+            <li><a href="/welcome">/welcome</a></li>
+            <li><a href="/register">/register</a></li>
+            <li><a href="/login">/login</a></li>
+            <li><a href="/do-logout">/do-logout</a></li>
+            <li><a href="/admin-page">/admin-page</a></li>
+            <li><a href="/user-page">/user-page</a></li>
+        </ul>
+    </div>
 
-    <footer th:replace="~{fragments/footer :: footer}"> </footer>
-</div>
+
 </body>
-
-
 </html>
+

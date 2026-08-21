@@ -5,8 +5,10 @@ import com.nikolas.app.components.SessionData;
 import com.nikolas.app.controllers.forms.FormDataContact;
 import com.nikolas.app.controllers.forms.FormDataOrder;
 import com.nikolas.app.models.Area;
+import com.nikolas.app.models.Order;
 import com.nikolas.app.models.Pie;
 import com.nikolas.app.repositories.AreaRepository;
+import com.nikolas.app.repositories.OrderRepository;
 import com.nikolas.app.repositories.PieRepository;
 import com.nikolas.app.services.VisitsMetricsService;
 import jakarta.mail.MessagingException;
@@ -28,6 +30,8 @@ import java.util.List;
 @RequestMapping("/buy")
 public class BuyController {
 
+    private int pageVisits = 0;
+
     @Autowired
     private VisitsMetricsService visitsMetricsService;
 
@@ -42,8 +46,8 @@ public class BuyController {
     @Autowired
     private EmailTemplates emailTemplates;
 
-
-    private int pageVisits = 0;
+    @Autowired
+    private OrderRepository orderRepository;
 
     @GetMapping
     public String handleRequest(Model model) {
@@ -78,9 +82,11 @@ public class BuyController {
 
             //pros ton diaxeiristi tou pitospies
             emailTemplates.sendEmailToAdminOrderForm(formDataOrder, sessionData.getOrder());
-
             //pros ton user pu sumplirwnei thn form
             emailTemplates.sendEmailToClientOrderForm(formDataOrder, sessionData.getOrder());
+
+            Order order = new Order(formDataOrder, sessionData.getOrder());
+            orderRepository.save(order);
         }
 
         // send the data
