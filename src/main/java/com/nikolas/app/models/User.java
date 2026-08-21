@@ -18,7 +18,6 @@ public class User {
     int id;
     String username;
     String password;
-    String session;
 
     @Transient
     private List<String> roles;

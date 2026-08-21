@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
+
     User findUserByUsername(String username);
 
     @Query("SELECT role.name as role " +
