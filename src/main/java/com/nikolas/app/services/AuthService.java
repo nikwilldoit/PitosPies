@@ -5,13 +5,11 @@ import com.nikolas.app.repositories.UserRepository;
 import com.nikolas.app.models.Role;
 import com.nikolas.app.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +44,12 @@ public class AuthService implements UserDetailsService {
         );
     }
 
+    private Collection<? extends GrantedAuthority> getAuthorities(Collection<String> roles) {
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                .collect(Collectors.toList());
+    }
+
     public void registerUser(User user) {
         Role role = roleRepository.findRoleByName("USER");
         String encodedPassword = passwordEncoder.encode(user.getPassword());
@@ -53,9 +57,10 @@ public class AuthService implements UserDetailsService {
         userRepository.saveWithRole(user, role);
     }
 
-    private Collection<? extends GrantedAuthority> getAuthorities(Collection<String> roles) {
-        return roles.stream()
-                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
-                .collect(Collectors.toList());
-    }
+//    public void registerAdmin(User user) {
+//        Role role = roleRepository.findRoleByName("ADMIN");
+//        String encodedPassword = passwordEncoder.encode(user.getPassword());
+//        user.setPassword(encodedPassword);
+//        userRepository.saveWithRole(user, role);
+//    }
 }
