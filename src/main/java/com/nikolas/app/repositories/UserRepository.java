@@ -1,19 +1,19 @@
 package com.nikolas.app.repositories;
 
-import com.nikolas.app.beans.SessionBean;
-import com.nikolas.app.models.Pie;
 import com.nikolas.app.models.Role;
 import com.nikolas.app.models.User;
 import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
-
     User findUserByUsername(String username);
+    User findUserByStatus(String status);
+    User findUserByEmail(String email);
+
+
 
     @Query("SELECT role.name as role " +
             "FROM role " +
@@ -21,6 +21,9 @@ public interface UserRepository extends CrudRepository<User, Integer> {
             "    JOIN user ON user.id = user_role.user_id " +
             "WHERE user.id=:userId")
     List<String> findUserRoles(int userId);
+
+    @Query("SELECT COUNT(*) FROM user WHERE status<>'verified'")
+    Integer cntUnverifiedUsers();
 
     @Modifying
     @Query("INSERT INTO user_role (user_id, role_id) VALUES (:userId, :roleId) ")
@@ -31,4 +34,10 @@ public interface UserRepository extends CrudRepository<User, Integer> {
         save(user);
         addRoleToUser(user.getId(), role.getId());
     }
+
+    @Modifying
+    @Query("DELETE FROM user WHERE status!='verified'")
+    void deleteUnverifiedUsers();
+
+
 }

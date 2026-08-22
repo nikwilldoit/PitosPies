@@ -3,6 +3,7 @@ package com.nikolas.app.components;
 import com.nikolas.app.controllers.forms.FormDataContact;
 import com.nikolas.app.controllers.forms.FormDataOrder;
 import com.nikolas.app.models.Pie;
+import com.nikolas.app.models.User;
 import com.nikolas.app.repositories.AreaRepository;
 import com.nikolas.app.repositories.PieRepository;
 import com.nikolas.app.services.MailService;
@@ -140,6 +141,17 @@ public class EmailTemplates {
                 "</p>";
 
         mailService.sendHtmlEmail(formDataOrder.getEmail(), "Η Παραγγελία Σας!", text);
+    }
+
+    @Async
+    public void sendEmailCompleteRegister(User user) throws MessagingException {
+        String text =
+                "<div>Ακολουθήστε τον ακόλουθο σύνδεσμο για να ολοκληρώσετε την εγγραφή σας: " +
+                        "<a href=\"http://localhost:8080/register/" + user.getStatus() +"\">" +
+                        "http://localhost:8080/register/" + user.getStatus() + "</a>" +
+                        "</div>";
+
+        mailService.sendHtmlEmail(user.getEmail(), "Eπαλήθευση Εγγραφής", text);
     }
 
 }

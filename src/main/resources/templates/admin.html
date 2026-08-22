@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="gr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+
+
+<body>
+<div class="container">
+    <header th:replace="~{fragments/header :: header(extended=false)}"></header>
+
+    <main>
+        <h1>Κατάστημα</h1>
+        <article>
+            <ul>
+                <li>
+                    Ενέργειες Διαχειριστή:
+                    <ul>
+                        <li><a href="/admin/1">Διαγραφή χρηστών που δεν έχουν επαληθεύσει την εγγραφή τους (
+                            <span th:text="${unverifiedUsers}"></span>
+                            εγγραφές)
+                        </a></li>
+                    </ul>
+                </li>
+            </ul>
+        </article>
+
+        <aside th:replace="~{fragments/aside :: aside}"></aside>
+    </main>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
+
+<script src="/js/slider.js"></script>
+</body>
+
+
+</html>

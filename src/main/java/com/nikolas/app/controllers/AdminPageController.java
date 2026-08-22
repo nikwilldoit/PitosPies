@@ -11,7 +11,7 @@ public class AdminPageController {
 
     @GetMapping("/admin-page")
     public String handleRequest(Model model) {
-        return "admin-page";
+        return "admin";
     }
 
     @GetMapping("/administrator-page")

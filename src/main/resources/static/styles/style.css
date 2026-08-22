@@ -822,7 +822,7 @@ form label {
   justify-self: start;
 }
 form input[type=text], form input[type=email], form input[type=tel],
-form input[type=number], form select,
+form input[type=number], form input[type=password], form select,
 form textarea {
   background-color: rgba(72, 60, 70, 0.2);
   padding: 5px;
@@ -929,7 +929,7 @@ form.buy div.buttons input {
     display: grid;
     grid-template-rows: min-content 1fr;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: "info order" "info payment" "buttons buttons";
+    grid-template-areas: "error error" "info order" "info payment" "buttons buttons";
     align-items: start;
   }
   form.buy section.customer-info {
@@ -943,6 +943,9 @@ form.buy div.buttons input {
   }
   form.buy div.buttons {
     grid-area: buttons;
+  }
+  form.buy .error-message {
+    grid-area: error;
   }
 }
 .error-message {

@@ -11,16 +11,24 @@
     <main>
         <h1>Register</h1>
 
-        <th:block th:switch="${success}">
-            <article th:case="${true}">
+        <th:block th:switch="${status}">
+            <article th:case="'dataValidated'">
                 <div class="success-message">
-                    Παραλάβαμε το μήνυμα σας, θα επικοινωνήσουμε μαζί σας σύντομα!
+                    Επιτυχής Εγγραφή! Συνδεθείτε στο email σας, για την απαραίτητη επαλήθευση!
+                </div>
+            </article>
+            <article th:case="'verifyFailed'">
+                <div class="error-message">
+                    Αποτυχία στην επαλήθευση της εγγραφής, παρακαλώ προχωρήστε ξανά σε <a href="/register">εγγραφή</a>
+                </div>
+            </article>
+            <article th:case="'verifySucceeded'">
+                <div class="success-message">
+                    Ο λογαριασμός σας επαληθεύτηκε! Προχωρήστε σε <a href="/login">login</a>
                 </div>
             </article>
 
-
             <article th:case="*">
-
                 <form th:action="@{/register}" th:object="${formRegister}" method="post" class="form contact">
                     <label for="txtName">Ονοματεπώνυμο(*):</label>
                     <input type="text" id="txtName" name="fullname" minlength="3" maxlength="40" size="40" th:field="*{fullname}"  required>

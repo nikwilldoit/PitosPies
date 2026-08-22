@@ -1,16 +1,21 @@
 package com.nikolas.app.controllers;
 
+import com.nikolas.app.components.EmailTemplates;
+import com.nikolas.app.controllers.forms.FormRegister;
 import com.nikolas.app.models.User;
+import com.nikolas.app.repositories.UserRepository;
 import com.nikolas.app.services.AuthService;
+import com.nikolas.app.services.VisitsMetricsService;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.Random;
 
 @Controller
 @RequestMapping
@@ -18,6 +23,17 @@ public class AuthController {
 
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    private VisitsMetricsService visitsMetricsService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private EmailTemplates emailTemplates;
+
+    private int pageVisits = 0;
 
     @GetMapping("/login")
     public String handleRequest(Model model) {
@@ -31,22 +47,50 @@ public class AuthController {
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new User());
+        visitsMetricsService.increaseCounters(model, ++pageVisits);
+
+        model.addAttribute("formRegister", new FormRegister());
         return "register";
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") @Valid User user, BindingResult result) {
-        if (result.hasErrors()) {
-            return "register";
-        }
+    public String handleRequest(Model model, @Valid @ModelAttribute("formRegister") FormRegister formRegister,
+                                BindingResult bindingResult) throws IOException, MessagingException {
 
-        if(user.getRoles().contains("ADMIN")){
+        visitsMetricsService.increaseCounters(model, ++pageVisits);
+
+        if (!bindingResult.hasErrors()) {
+            model.addAttribute("status", "dataValidated");
+            User user = new User(null,
+                    formRegister.getUsername(),
+                    formRegister.getPassword(),
+                    formRegister.getFullname(),
+                    formRegister.getEmail(),
+                    formRegister.getTel(),
+                    String.valueOf(new Random().nextInt(10000)),
+                    null
+            );
+            emailTemplates.sendEmailCompleteRegister(user);
             authService.registerUser(user);
         }
-        else{
-            authService.registerAdmin(user);
+
+        //authService.registerUser(user);
+        System.out.println(bindingResult);
+        return "register";
+    }
+
+    @GetMapping("/register/{code}")
+    public String handleRequest3(Model model, @PathVariable String code) {
+        User user = userRepository.findUserByStatus(code);
+
+        if (user==null)
+            model.addAttribute("status", "verifyFailed");
+        else {
+            model.addAttribute("status", "verifySucceeded");
+            user.setStatus("verified");
+            userRepository.save(user);
         }
-        return "redirect:/login";
+
+        return "register";
     }
 }
