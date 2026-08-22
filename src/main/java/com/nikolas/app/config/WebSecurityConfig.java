@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 //import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -34,6 +35,10 @@ public class WebSecurityConfig {
     @Primary
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
+        HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
+        //requestCache.setMatchingRequestParameterName("login-success");
+        requestCache.setMatchingRequestParameterName(null);
+
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/admin-page", "/administrator-page").hasAuthority("ROLE_ADMIN")
@@ -50,6 +55,12 @@ public class WebSecurityConfig {
                                 .logoutUrl("/logout")
                                 .logoutSuccessUrl("/")
                                 .permitAll()
+                ).requestCache(
+                        cache->cache.requestCache(requestCache)
+                ).rememberMe(rember->rember
+                        .rememberMeCookieName("remember-cookie")
+                        .key("123456")
+                        .tokenValiditySeconds(60*60*24*30*6) //6 months
                 );
         return http.build();
     }
