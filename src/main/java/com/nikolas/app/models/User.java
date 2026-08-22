@@ -18,6 +18,10 @@ public class User {
     int id;
     String username;
     String password;
+    String fullname;
+    String email;
+    String tel;
+    String status;
 
     @Transient
     private List<String> roles;
