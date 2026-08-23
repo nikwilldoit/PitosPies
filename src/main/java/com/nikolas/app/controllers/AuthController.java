@@ -72,7 +72,19 @@ public class AuthController {
     }
 
     @GetMapping("/do-logout")
-    public String handleRequest2(Model model) {
+    public String handleRequest2(Model model, @Param("status") String status) throws IOException, MessagingException {
+
+        System.out.println("User : " + sessionData.getUser());
+
+        if (status!=null && status.equals("logoutSucceeded")) {
+            model.addAttribute("status", "logoutSucceeded");
+            sessionData.setUser(null);
+        }
+
+        else if (sessionData.getUser()==null) {
+            model.addAttribute("status", "alreadyLoggedIn");
+        }
+
         return "logout";
     }
 

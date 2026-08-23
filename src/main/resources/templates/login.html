@@ -18,8 +18,13 @@
                     Επιτυχής Σύνδεση! Συνεχίστε την πλοήγηση σας στη σελίδα!
                 </div>
             </article>
-            <article th:case="'alreadyLoggedIn'">
+            <article th:case="'authRequired'">
                 <div class="success-message">
+                    Ο συγκεκριμένος πόρος απαιτεί να έχετε κάνει login!
+                </div>
+            </article>
+            <article th:case="'alreadyLoggedIn'">
+                <div class="error-message">
                     Έχετε ήδη πραγματοποιήσει σύνδεση!
                 </div>
             </article>
@@ -40,7 +45,7 @@
                     <a href="@{/register}">Εγγραφείτε!</a>
                     <a href="@{/password-reset}">Ξεχάσατε τον κωδικό σας;</a>
 
-                    <!--CSRF SECURITY-->
+                    <!-- CSRF SECURITY-->
                     <input type="hidden" th:name="${_csrf.parameterName}"
                            th:value="${_csrf.token}" />
 

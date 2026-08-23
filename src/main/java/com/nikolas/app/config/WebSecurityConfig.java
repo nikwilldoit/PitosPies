@@ -51,6 +51,10 @@ public class WebSecurityConfig {
                                 .logoutUrl("/logout")
                                 .logoutSuccessUrl("/do-logout?status=logoutSucceeded")
                                 .permitAll()
+                ).rememberMe(remember->remember
+                        .rememberMeCookieName("remember-cookie")
+                        .key("123456")
+                        .tokenValiditySeconds(60*60*24*30*6) //6 months
                 );
         return http.build();
     }
