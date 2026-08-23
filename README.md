@@ -82,7 +82,7 @@
 
 | Σελίδα Καταστήματος |
 | :---: |
-| ![Σελίδα Καταστήματος](docs/screenshots/store-page.png) |
+| ![Σελίδα Καταστήματος](https://github.com/user-attachments/assets/25112c5b-6295-40c6-b21b-5c5acfafe04e) |
 
 ### 🛒 Δημιουργία Παραγγελίας (Order / Buy)
 Η πιο σημαντική ροή της εφαρμογής. `GET /buy`:
