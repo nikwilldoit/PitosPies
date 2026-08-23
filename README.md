@@ -61,28 +61,28 @@
 
 | Αίτημα Επαναφοράς | Email με Κωδικό | Ορισμός Νέου Password |
 | :---: | :---: | :---: |
-| ![Αίτημα Επαναφοράς](https://github.com/user-attachments/assets/d55c3928-0181-4956-b551-ec185ea1a180) | ![Email Επαναφοράς](docs/screenshots/password-reset-email.png) | ![Νέο Password](docs/screenshots/password-reset-new.png) |
+| ![Αίτημα Επαναφοράς](https://github.com/user-attachments/assets/ce6a0277-6db3-4f25-b67a-3eda51e3ffaa) | ![Email Επαναφοράς](https://github.com/user-attachments/assets/0f94328e-fdb6-4192-8cef-6a38b5b8c067) | ![Νέο Password](https://github.com/user-attachments/assets/2d29b037-f3a9-415d-8268-031ab2d0fcf3) |
 
 ### 📞 Φόρμα Επικοινωνίας (Contact)
 Ροή: `GET /contact` → συμπλήρωση ονοματεπώνυμου, e-mail, τηλεφώνου, μηνύματος (`@MessageConstraint`: 5–100 χαρακτήρες) → `POST /contact` → αποστολή email τόσο στον διαχειριστή όσο και επιβεβαίωσης στον χρήστη.
 
-| Φόρμα Επικοινωνίας | Επιτυχής Αποστολή |
-| :---: | :---: |
-| ![Φόρμα Επικοινωνίας](docs/screenshots/contact-form.png) | ![Επιβεβαίωση Αποστολής](docs/screenshots/contact-success.png) |
+| Φόρμα Επικοινωνίας | Επιτυχής Αποστολή | Email Επιβεβαίωσης |
+| :---: | :---: | :---: |
+| ![Φόρμα Επικοινωνίας](https://github.com/user-attachments/assets/b2faed25-3c2c-47bd-9b22-a091a5e678e5) | ![Επιτυχής Αποστολή](https://github.com/user-attachments/assets/57de81cd-24b2-4416-932a-103ae1f57d84) | ![Email Επιβεβαίωσης](https://github.com/user-attachments/assets/b8d1b238-4290-4082-b429-f5741565e821)
 
 ### 🥧 Κατάλογος & Λεπτομέρειες Πίτας (Pies)
 Ροή: `GET /pies` (λίστα όλων των πιτών με εικόνα/τιμή) → `GET /pies/{id}` (λεπτομέρειες, υλικά μέσω `findIngredientsOfPie`, βραβεία) → `POST /pies/{id}` (προσθήκη ποσότητας στο καλάθι της session, redirect σε `/buy`).
 
-| Κατάλογος Πιτών | Λεπτομέρειες Πίτας | Προσθήκη στο Καλάθι |
-| :---: | :---: | :---: |
-| ![Κατάλογος Πιτών](docs/screenshots/pies-list.png) | ![Λεπτομέρειες Πίτας](docs/screenshots/pie-details.png) | ![Προσθήκη στο Καλάθι](docs/screenshots/pie-add-to-cart.png) |
+| Κατάλογος Πιτών | Λεπτομέρειες Πίτας
+| :---: | :---: |
+| ![Κατάλογος Πιτών](https://github.com/user-attachments/assets/f3534a76-602c-4b97-adfc-305fcbb55734) | ![Λεπτομέρειες Πίτας](https://github.com/user-attachments/assets/560e8f19-f5e6-4f86-a6e5-c61af377558b)
 
 ### 🏬 Κατάστημα (Store)
 Ροή: `GET /store` — πληροφορίες καταστήματος (π.χ. διεύθυνση, ωράριο, στοιχεία επικοινωνίας του φυσικού καταστήματος).
 
 | Σελίδα Καταστήματος |
 | :---: |
-| ![Σελίδα Καταστήματος](docs/screenshots/store-page.png) |
+| ![Σελίδα Καταστήματος](https://github.com/user-attachments/assets/25112c5b-6295-40c6-b21b-5c5acfafe04e) |
 
 ### 🛒 Δημιουργία Παραγγελίας (Order / Buy)
 Η πιο σημαντική ροή της εφαρμογής. `GET /buy`:
@@ -98,7 +98,7 @@
 
 | Καλάθι / Φόρμα Παραγγελίας | Ιστορικό Προηγούμενων Παραγγελιών | Validation Σφάλματα | Επιτυχής Παραγγελία | Email Επιβεβαίωσης Παραγγελίας |
 | :---: | :---: | :---: | :---: | :---: |
-| ![Φόρμα Παραγγελίας](docs/screenshots/order-form.png) | ![Προηγούμενες Παραγγελίες](docs/screenshots/order-history.png) | ![Σφάλματα Παραγγελίας](docs/screenshots/order-errors.png) | ![Επιτυχής Παραγγελία](docs/screenshots/order-success.png) | ![Email Παραγγελίας](docs/screenshots/order-email.png) |
+| ![Φόρμα Παραγγελίας](https://github.com/user-attachments/assets/45971e56-3b82-42e8-9a94-d96a0cec0722) | ![Προηγούμενες Παραγγελίες](https://github.com/user-attachments/assets/d8a4258d-1688-474a-8931-c222234b4151) | ![Σφάλματα Παραγγελίας](https://github.com/user-attachments/assets/6be4ca21-f976-4f43-987c-e82326dbe907) | ![Επιτυχής Παραγγελία](https://github.com/user-attachments/assets/989f6ce0-c54c-433a-bac1-4453ada086c8) | ![Email Παραγγελίας](https://github.com/user-attachments/assets/6a2ceed2-e089-489b-94b6-671368a8e305) |
 
 ---
 
