@@ -21,7 +21,7 @@ public class SendSMSController {
     @GetMapping
     public String handleRequest(Model model){
 
-        smsService.send("+from_tel", "+to_tel", "This a sample SMS!");
+        smsService.send("+from_tel", "+to_tel", "This a sample SMS!"); //the phones goes there
         return "index";
     }
 }
