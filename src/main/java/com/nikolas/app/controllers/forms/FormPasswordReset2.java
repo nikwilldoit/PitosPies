@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FormPasswordReset2 {
-
     @Pattern(regexp = "^[0-9a-zA-Z]{5,20}$|^$", message = "Μη έγκυρο password (5-20 λατινικοί χαρακτήρες ή/και αριθμοί)")
     private String password;
 
     @Pattern(regexp = "^[0-9a-zA-Z]{5,20}$|^$", message = "Μη έγκυρο password (5-20 λατινικοί χαρακτήρες ή/και αριθμοί)")
     private String password2;
+
     private String code;
 
     @AssertTrue(message = "Οι κωδικοί που δώσατε δεν είναι ίδιοι")

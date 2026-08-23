@@ -1,5 +1,6 @@
 package com.nikolas.app.controllers.forms;
 
+import com.nikolas.app.controllers.forms.custom_validators.EmailExistsConstraint;
 import com.nikolas.app.controllers.forms.custom_validators.EmailNotExistsConstraint;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -12,10 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FormPasswordReset {
-
-    @NotNull(message = "Το e-mail πρέπει να μην είναι null")
-    @NotEmpty(message = "To e-mail πρέπει να μην είναι κενό")
-    @Email(message = "Το e-mail δεν είναι έγκυρο")
-    @EmailNotExistsConstraint(message = "Το e-mail που δώσατε χρησιμοποιείται από άλλον χρήστη. Επιλέξτε νέο!")
+    @NotNull(message="Το email πρέπει να είναι συμπληρωμένο")
+    @Email
+    @EmailExistsConstraint(message = "Το e-mail που δώσατε δεν χρησιμοποιείται από κάποιον χρήστη!")
     private String email;
 }
