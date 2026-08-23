@@ -61,7 +61,7 @@
 
 | Αίτημα Επαναφοράς | Email με Κωδικό | Ορισμός Νέου Password |
 | :---: | :---: | :---: |
-| ![Αίτημα Επαναφοράς](https://github.com/user-attachments/assets/d55c3928-0181-4956-b551-ec185ea1a180) | ![Email Επαναφοράς](docs/screenshots/password-reset-email.png) | ![Νέο Password](docs/screenshots/password-reset-new.png) |
+| ![Αίτημα Επαναφοράς](https://github.com/user-attachments/assets/ce6a0277-6db3-4f25-b67a-3eda51e3ffaa) | ![Email Επαναφοράς](https://github.com/user-attachments/assets/0f94328e-fdb6-4192-8cef-6a38b5b8c067) | ![Νέο Password](https://github.com/user-attachments/assets/2d29b037-f3a9-415d-8268-031ab2d0fcf3) |
 
 ### 📞 Φόρμα Επικοινωνίας (Contact)
 Ροή: `GET /contact` → συμπλήρωση ονοματεπώνυμου, e-mail, τηλεφώνου, μηνύματος (`@MessageConstraint`: 5–100 χαρακτήρες) → `POST /contact` → αποστολή email τόσο στον διαχειριστή όσο και επιβεβαίωσης στον χρήστη.
