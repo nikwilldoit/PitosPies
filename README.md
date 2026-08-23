@@ -55,10 +55,7 @@
 
 | Φόρμα Login | Επιτυχής Σύνδεση | Λάθος Στοιχεία |
 | :---: | :---: | :---: |
-| ![Φόρμα Login](<img width="784" height="424" alt="image" src="https://github.com/user-attachments/assets/d7f2ca7b-ab77-48a9-a147-00299da04a70" />
-) | ![Επιτυχής Σύνδεση](<img width="807" height="196" alt="image" src="https://github.com/user-attachments/assets/1cac69f2-4b47-4a2a-be42-aeb4b58f7790" />
-) | ![Λάθος Στοιχεία](<img width="802" height="451" alt="image" src="https://github.com/user-attachments/assets/eb6cee55-2706-42dc-ad39-77f771652731" />
-) |
+| ![Φόρμα Login](<img width="784" height="424" alt="image" src="https://github.com/user-attachments/assets/d7f2ca7b-ab77-48a9-a147-00299da04a70" />) | ![Επιτυχής Σύνδεση](<img width="807" height="196" alt="image" src="https://github.com/user-attachments/assets/1cac69f24b47-4a2a-be42-aeb4b58f7790" />) | ![Λάθος Στοιχεία](<img width="802" height="451" alt="image" src="https://github.com/user-attachments/assets/eb6cee55-2706-42dc-ad39-77f771652731" />) |
 
 ### 🔁 Ξεχάσατε τον Κωδικό; (Forgot / Reset Password)
 Ροή δύο βημάτων: `GET/POST /password-reset` (εισαγωγή e-mail → αποστολή email με τυχαίο κωδικό επιβεβαίωσης) → `GET /password-reset/{code}` (έλεγχος εγκυρότητας κωδικού) → `POST /password-reset2` (ορισμός νέου password, με έλεγχο ότι τα δύο πεδία ταιριάζουν μέσω `@AssertTrue`).
