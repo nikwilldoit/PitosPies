@@ -1,39 +1,37 @@
-# 🥧 PitosPies — Εφαρμογή Ηλεκτρονικού Καταστήματος Παραδοσιακής Πιτόπιτας
+# 🥧 PitosPies — Traditional Pie E-Commerce Application
 
-Μια web εφαρμογή **Spring Boot** για online παραγγελίες πιτών από ένα παραδοσιακό αρτοποιείο/πιτσαρία ("PitosPies"). Καλύπτει τον πλήρη κύκλο παραγγελίας (κατάλογος πιτών, καλάθι, checkout), εγγραφή/είσοδο χρηστών με ρόλους (RBAC), custom Bean-Validation κανόνες, αποστολή email, βασικό διαχειριστικό panel και ένα (μη ολοκληρωμένο) module SMS.
-
-> ⚠️ Αυτό το README είναι γραμμένο **βάσει του πραγματικού πηγαίου κώδικα** (φάκελος `src/main`), όχι βάσει υποθέσεων. Στο τέλος υπάρχει ειδική ενότητα με όλες τις διορθώσεις σε σχέση με το προηγούμενο κείμενο, γιατί περιείχε αρκετές ανακρίβειες (κυρίως γύρω από persistence layer, security rules και i18n).
+A **Spring Boot** web application for online pie ordering from a traditional bakery/pie shop ("PitosPies"). It covers the complete order lifecycle (pie catalog, shopping cart, checkout), user registration/login with Role-Based Access Control (RBAC), custom Bean Validation rules, email notifications, a basic admin panel, and an (incomplete) SMS module.
 
 ---
 
-## 🍽️ Τι Είναι το PitosPies
+## What is PitosPies
 
-Το **PitosPies** είναι ένα ολοκληρωμένο online κατάστημα πώλησης παραδοσιακών ελληνικών πιτών (σπανακόπιτα, μανιταρόπιτα, πρασόπιτα, μπουρέκι κ.λπ.). Ένας επισκέπτης μπορεί να:
+**PitosPies** is a full-featured online store selling traditional Greek pies. A visitor can:
 
-* περιηγηθεί στον **κατάλογο πιτών**, να δει τιμή, εικόνα, υλικά και τυχόν βραβεία κάθε πίτας,
-* δει πληροφορίες για το φυσικό **κατάστημα** (τοποθεσία, στοιχεία επικοινωνίας κ.λπ.),
-* κάνει **εγγραφή** λογαριασμού (με επαλήθευση μέσω e-mail) ή να **συνδεθεί** σε υπάρχοντα λογαριασμό,
-* ζητήσει **επαναφορά κωδικού** (forgot password) αν τον ξεχάσει,
-* συνθέσει και υποβάλει μια **παραγγελία** (καλάθι → στοιχεία παράδοσης → τρόπος πληρωμής), είτε ως καλεσμένος είτε ως συνδεδεμένος χρήστης — στη δεύτερη περίπτωση βλέπει και τις 5 τελευταίες παραγγελίες του και μπορεί να τις "επαναλάβει" με ένα κλικ,
-* στείλει μήνυμα μέσω **φόρμας επικοινωνίας**.
+* browse the **pie catalog**, viewing prices, images, ingredients, and any awards won by each pie,
+* view information about the physical **store** (location, contact details, etc.),
+* **register** an account (with email verification) or **log in** to an existing account,
+* request a **password reset** (forgot password) if forgotten,
+* build and submit an **order** (cart → delivery details → payment method), either as a guest or as a logged-in user — logged-in users can also view their last 5 orders and re-order them with a single click,
+* send a message via the **contact form**.
 
-Ένας διαχειριστής (`ROLE_ADMIN`) έχει επιπλέον πρόσβαση σε ένα ελάχιστο **admin panel** (`/admin`) απ' όπου μπορεί να διαγράψει λογαριασμούς χρηστών που δεν έχουν ολοκληρώσει την επαλήθευση e-mail τους. Υπάρχει επίσης ένα ξεκίνημα module αποστολής **SMS ειδοποιήσεων** (μέσω Twilio), το οποίο δεν είναι ακόμα λειτουργικό.
+An administrator (`ROLE_ADMIN`) has additional access to a minimal **admin panel** (`/admin`), where they can delete user accounts that have not completed email verification. There is also the beginning of an **SMS notification** module (via Twilio), which is not yet operational.
 
-## 🛠️ Τεχνολογίες που Χρησιμοποιήθηκαν (σύνοψη)
+## 🛠️ Technologies Used (Summary)
 
-Η παρακάτω λίστα προκύπτει από ανάλυση των πραγματικών `import` του κώδικα (λεπτομερής πίνακας με αιτιολόγηση στην ενότητα [Στοίβα Τεχνολογιών](#️-στοίβα-τεχνολογιών-αναλυτικά)):
+The following list is derived from analyzing the actual `import` statements in the codebase (for a detailed table with justifications, see the [Tech Stack](#️-tech-stack-detailed) section):
 
-* **Γλώσσα / Runtime:** Java 17+, Spring Boot 3.x (Jakarta EE namespaces)
-* **Web layer:** Spring Web MVC (`@Controller`)
-* **Views:** Thymeleaf (server-side rendering, fragments, `thymeleaf-extras-springsecurity` για CSRF)
-* **Persistence:** **Spring Data JDBC** (όχι JPA/Hibernate)
-* **Βάση δεδομένων:** MySQL (μέσω MySQL Connector/J)
-* **Ασφάλεια:** Spring Security (form login, BCrypt, remember-me, custom `UserDetailsService`)
-* **Validation:** Jakarta Bean Validation + custom validators (7 δικοί μας κανόνες)
-* **E-mail:** Spring Mail / `JavaMailSender` (SMTP μέσω Gmail)
-* **SMS:** Twilio SDK (μη λειτουργικό ακόμα)
+* **Language / Runtime:** Java 17+, Spring Boot 3.x (Jakarta EE namespaces)
+* **Web Layer:** Spring Web MVC (`@Controller`)
+* **Views:** Thymeleaf (server-side rendering, fragments, `thymeleaf-extras-springsecurity` for CSRF)
+* **Persistence:** **Spring Data JDBC** (not JPA/Hibernate)
+* **Database:** MySQL (via MySQL Connector/J)
+* **Security:** Spring Security (form login, BCrypt, remember-me, custom `UserDetailsService`)
+* **Validation:** Jakarta Bean Validation + custom validators (7 custom rules)
+* **Email:** Spring Mail / `JavaMailSender` (SMTP via Gmail)
+* **SMS:** Twilio SDK (currently non-functional)
 * **Boilerplate:** Lombok
-* **Frontend assets:** SCSS (compiled σε CSS), plain JavaScript
+* **Frontend Assets:** SCSS (compiled to CSS), plain JavaScript
 
 ---
 
