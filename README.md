@@ -121,7 +121,9 @@ When an order is successfully submitted, it is stored in the database and confir
 ### DataBase
 
 [Mysql Database Schema](src/main/resources/db/DB_schema.sql)
-<img width="544" height="566" alt="pitos_schema" src="https://github.com/user-attachments/assets/297f1a66-3755-4c5d-bff6-b315dc1548cd" />
+<p align="center">
+  <img width="544" height="566" alt="pitos_schema" src="https://github.com/user-attachments/assets/297f1a66-3755-4c5d-bff6-b315dc1548cd" />
+</p>
 
 ## Project Structure
 
