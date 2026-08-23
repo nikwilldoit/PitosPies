@@ -68,14 +68,14 @@
 
 | Φόρμα Επικοινωνίας | Επιτυχής Αποστολή | Email Επιβεβαίωσης |
 | :---: | :---: | :---: |
-| ![Φόρμα Επικοινωνίας](https://github.com/user-attachments/assets/b2faed25-3c2c-47bd-9b22-a091a5e678e5) | ![Επιβεβαίωση Αποστολής](https://github.com/user-attachments/assets/57de81cd-24b2-4416-932a-103ae1f57d84) | ![Επιβεβαίωση Email](https://github.com/user-attachments/assets/b8d1b238-4290-4082-b429-f5741565e821)
+| ![Φόρμα Επικοινωνίας](https://github.com/user-attachments/assets/b2faed25-3c2c-47bd-9b22-a091a5e678e5) | ![Επιτυχής Αποστολή](https://github.com/user-attachments/assets/57de81cd-24b2-4416-932a-103ae1f57d84) | ![Email Επιβεβαίωσης](https://github.com/user-attachments/assets/b8d1b238-4290-4082-b429-f5741565e821)
 
 ### 🥧 Κατάλογος & Λεπτομέρειες Πίτας (Pies)
 Ροή: `GET /pies` (λίστα όλων των πιτών με εικόνα/τιμή) → `GET /pies/{id}` (λεπτομέρειες, υλικά μέσω `findIngredientsOfPie`, βραβεία) → `POST /pies/{id}` (προσθήκη ποσότητας στο καλάθι της session, redirect σε `/buy`).
 
-| Κατάλογος Πιτών | Λεπτομέρειες Πίτας | Προσθήκη στο Καλάθι |
-| :---: | :---: | :---: |
-| ![Κατάλογος Πιτών](docs/screenshots/pies-list.png) | ![Λεπτομέρειες Πίτας](docs/screenshots/pie-details.png) | ![Προσθήκη στο Καλάθι](docs/screenshots/pie-add-to-cart.png) |
+| Κατάλογος Πιτών | Λεπτομέρειες Πίτας
+| :---: | :---: |
+| ![Κατάλογος Πιτών](https://github.com/user-attachments/assets/f3534a76-602c-4b97-adfc-305fcbb55734) | ![Λεπτομέρειες Πίτας](https://github.com/user-attachments/assets/560e8f19-f5e6-4f86-a6e5-c61af377558b)
 
 ### 🏬 Κατάστημα (Store)
 Ροή: `GET /store` — πληροφορίες καταστήματος (π.χ. διεύθυνση, ωράριο, στοιχεία επικοινωνίας του φυσικού καταστήματος).
