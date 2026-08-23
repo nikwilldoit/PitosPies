@@ -19,13 +19,13 @@ An administrator (`ROLE_ADMIN`) has additional access to a minimal **admin panel
 
 ## 🛠️ Technologies Used (Summary)
 
-The following list is derived from analyzing the actual `import` statements in the codebase (for a detailed table with justifications, see the [Tech Stack](#️-tech-stack-detailed) section):
+The following list is derived from analyzing the actual `import` statements in the codebase:
 
 * **Language / Runtime:** Java 17+, Spring Boot 3.x (Jakarta EE namespaces)
 * **Web Layer:** Spring Web MVC (`@Controller`)
 * **Views:** Thymeleaf (server-side rendering, fragments, `thymeleaf-extras-springsecurity` for CSRF)
-* **Persistence:** **Spring Data JDBC** (not JPA/Hibernate)
-* **Database:** MySQL (via MySQL Connector/J)
+* **Persistence:** **Spring Data JDBC**
+* **Database:** MySQL
 * **Security:** Spring Security (form login, BCrypt, remember-me, custom `UserDetailsService`)
 * **Validation:** Jakarta Bean Validation + custom validators (7 custom rules)
 * **Email:** Spring Mail / `JavaMailSender` (SMTP via Gmail)
