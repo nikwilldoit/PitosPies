@@ -10,7 +10,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderItem {
-    private Integer pieId;
     private Integer orderId;
+    private Integer pieId;
     private Integer quantity;
 }

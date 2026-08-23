@@ -111,7 +111,11 @@ public class BuyController {
         // success: No errors
         if (!bindingResult.hasErrors()) {
             model.addAttribute("success", true);
+
+            //apostolh ston client
             emailTemplates.sendEmailToClientOrderForm(formDataOrder, sessionData.getOrder());
+
+            //apostolh ston admin tou pitospies
             emailTemplates.sendEmailToAdminOrderForm(formDataOrder, sessionData.getOrder());
             Order order = new Order(formDataOrder, sessionData.getOrder());
             if (sessionData.getUser()!=null)

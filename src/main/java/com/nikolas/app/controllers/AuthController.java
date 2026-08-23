@@ -32,7 +32,6 @@ public class AuthController {
 
     @Autowired
     private AuthService authService;
-
     @Autowired
     private VisitsMetricsService visitsMetricsService;
 
@@ -51,8 +50,6 @@ public class AuthController {
     public String handleRequest(Model model, @Param("status") String status, @Param("previous") String previous,
                                 HttpSession session) throws IOException, MessagingException {
         visitsMetricsService.increaseCounters(model, ++pageVisits);
-
-        System.out.println("User : " + sessionData.getUser());
 
         if (previous!=null)
             session.setAttribute("previous", previous);
@@ -78,17 +75,14 @@ public class AuthController {
     }
 
     @GetMapping("/do-logout")
-    public String handleRequest2(Model model, @Param("status") String status) throws IOException, MessagingException {
-
-        System.out.println("User : " + sessionData.getUser());
+    public String handleRequest2(Model model, @Param("status") String status) {
 
         if (status!=null && status.equals("logoutSucceeded")) {
             model.addAttribute("status", "logoutSucceeded");
             sessionData.setUser(null);
         }
-
         else if (sessionData.getUser()==null) {
-            model.addAttribute("status", "alreadyLoggedIn");
+            model.addAttribute("status", "alreadyLoggedOut");
         }
 
         return "logout";
@@ -105,7 +99,6 @@ public class AuthController {
     @PostMapping("/register")
     public String handleRequest(Model model, @Valid @ModelAttribute("formRegister") FormRegister formRegister,
                                 BindingResult bindingResult) throws IOException, MessagingException {
-
         visitsMetricsService.increaseCounters(model, ++pageVisits);
 
         if (!bindingResult.hasErrors()) {
@@ -117,15 +110,12 @@ public class AuthController {
                     formRegister.getEmail(),
                     formRegister.getTel(),
                     String.valueOf(new Random().nextInt(10000)),
-                    null,
-                    null
+                    null, null
             );
             emailTemplates.sendEmailCompleteRegister(user);
             authService.registerUser(user);
         }
 
-        //authService.registerUser(user);
-        System.out.println(bindingResult);
         return "register";
     }
 
@@ -145,7 +135,7 @@ public class AuthController {
     }
 
     @GetMapping("/password-reset")
-    public String showPasswordResetForm(Model model) {
+    public String showPasswordReset(Model model) {
         visitsMetricsService.increaseCounters(model, ++pageVisits);
 
         model.addAttribute("formPasswordReset", new FormPasswordReset());
@@ -154,15 +144,14 @@ public class AuthController {
 
     @PostMapping("/password-reset")
     public String handleRequest2(Model model, @Valid @ModelAttribute("formPasswordReset") FormPasswordReset formPasswordReset,
-                                BindingResult bindingResult) throws IOException, MessagingException {
-
+                                 BindingResult bindingResult) throws IOException, MessagingException {
         visitsMetricsService.increaseCounters(model, ++pageVisits);
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("status", "emailNotValid");
             return "password-reset";
         }
-        else{
+        else {
             model.addAttribute("status", "emailValid");
             Random r = new Random();
             String code = String.valueOf(r.nextInt(1000, 2000));
@@ -174,7 +163,6 @@ public class AuthController {
             return "password-reset";
         }
     }
-
     @GetMapping("/password-reset/{code}")
     public String showPasswordReset2(Model model, @PathVariable String code) {
         visitsMetricsService.increaseCounters(model, ++pageVisits);
@@ -216,5 +204,4 @@ public class AuthController {
             return "password-reset2";
         }
     }
-
 }

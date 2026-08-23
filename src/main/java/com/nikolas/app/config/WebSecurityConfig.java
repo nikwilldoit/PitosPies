@@ -1,5 +1,7 @@
 package com.nikolas.app.config;
 
+import com.nikolas.app.config.interceptors.CustomLoginSuccessHandler;
+import com.nikolas.app.config.interceptors.CustomLogoutSuccessHandler;
 import com.nikolas.app.services.AuthService;
 import com.nikolas.app.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,12 @@ public class WebSecurityConfig {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
+    private CustomLoginSuccessHandler customLoginSuccessHandler;
+
+    @Autowired
+    private CustomLogoutSuccessHandler customLogoutSuccessHandler;
+
+    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(authService).passwordEncoder(passwordEncoder);
     }
@@ -34,28 +42,28 @@ public class WebSecurityConfig {
     @Bean
     @Primary
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/admin", "/admin/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/admin").hasAuthority("ROLE_ADMIN")
                         .anyRequest().permitAll()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/login?status=success")
+                                .successHandler(customLoginSuccessHandler)
                                 .failureUrl("/login?status=wrongCredentials")
                                 .permitAll()
                 ).logout(
                         logout->logout
                                 .logoutUrl("/logout")
-                                .logoutSuccessUrl("/do-logout?status=logoutSucceeded")
+                                .logoutSuccessHandler(customLogoutSuccessHandler)
                                 .permitAll()
                 ).rememberMe(remember->remember
                         .rememberMeCookieName("remember-cookie")
                         .key("123456")
-                        .tokenValiditySeconds(60*60*24*30*6) //6 months
+                        .tokenValiditySeconds(60*60*24*30*6) // diarkeia 6 months
                 );
+
         return http.build();
     }
 

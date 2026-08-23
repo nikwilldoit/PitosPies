@@ -19,7 +19,7 @@
 
       <th:block th:if="${success}">
         <div class="success-message">
-          Παραλάβαμε το μήνυμα σας, θα επικοινωνήσουμε μαζί σας σύντομα!
+          Παραλάβαμε την ποραγγελία σας και οι πίτες μας θα είναι σύντομα κοντά σας!
         </div>
       </th:block>
 
@@ -41,7 +41,6 @@
           </ul>
         </th:block>
 
-
         <form th:action="@{'/buy'}" th:object="${formDataOrder}" method="POST" class="form buy">
 
           <div class="error-message"  th:if="${#fields.hasErrors()}">
@@ -56,7 +55,7 @@
               <li th:if="${#fields.hasErrors('order')}" th:errors="*{order}"></li>
               <li th:if="${#fields.hasErrors('offer')}" th:errors="*{offer}"></li>
               <li th:if="${#fields.hasErrors('payment')}" th:errors="*{payment}"></li>
-              <li th:if="${#fields.hasErrors('timestamp')}" th:errors="*{stamp}"></li>
+              <li th:if="${#fields.hasErrors('timestamp')}" th:errors="*{timestamp}"></li>
             </ul>
           </div>
 

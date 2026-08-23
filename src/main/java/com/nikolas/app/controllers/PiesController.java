@@ -60,7 +60,7 @@ public class PiesController {
     public String handleRequest(Model model , @PathVariable Integer id, @RequestParam Integer quantity) {
 
         sessionData.getOrder().put(id,quantity);
-        System.out.println(sessionData.getOrder());
+        System.out.println(sessionData.getOrder() + "ssss");
 
         return "redirect:/buy";
     }
