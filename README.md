@@ -46,8 +46,6 @@
 | Frontend | Thymeleaf(HTML) + SCSS + JavaScript |
 | Database Driver | MySQL Connector |
 
-> **Note:** The project uses **Spring Data JDBC**, not JPA/Hibernate. Database relationships are handled through Spring Data JDBC mappings and custom SQL queries where required.
-
 ## Application Screenshots
 
 ### User Registration
