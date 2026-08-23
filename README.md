@@ -197,13 +197,13 @@ The application uses Jakarta Bean Validation together with custom validation con
 
 Implemented validation rules include:
 
-1. **`@AtLeastOneItemInOrderConstraint`** — ensures that an order contains at least one pie.
-2. **`@EmailNotExistsConstraint`** — validates email uniqueness where required.
-3. **`@UsernameNotExistsConstraint`** — validates username uniqueness during registration.
-4. **`@TelephoneConstraint`** — validates Greek telephone number formats.
-5. **`@OrderTimestampConstraint`** — validates order timing according to the application's order rules.
-6. **`@OrderItemValuesConstraint`** — validates pie quantities from 0 to 100.
-7. **`@MessageConstraint`** — validates contact messages between 5 and 100 characters.
+1. **`@AtLeastOneItemInOrderConstraint`** - ensures that an order contains at least one pie.
+2. **`@EmailNotExistsConstraint`** - validates email uniqueness where required.
+3. **`@UsernameNotExistsConstraint`** - validates username uniqueness during registration.
+4. **`@TelephoneConstraint`** - validates Greek telephone number formats.
+5. **`@OrderTimestampConstraint`** - validates order timing according to the application's order rules.
+6. **`@OrderItemValuesConstraint`** - validates pie quantities from 0 to 100.
+7. **`@MessageConstraint`** - validates contact messages between 5 and 100 characters.
 
 ## Service Layer
 
