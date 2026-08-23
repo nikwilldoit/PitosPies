@@ -276,4 +276,4 @@ Access the application in your browser at `http://localhost:8080`.
 ---
 
 ## 📝 License & Credits
-Developed by **Nikolas App Development Team**. Built with Spring Boot and standard open-source tools.
+Developed by **Nikolas Poulopoulos**.
