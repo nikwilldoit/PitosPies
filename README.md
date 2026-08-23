@@ -66,9 +66,9 @@
 ### 📞 Φόρμα Επικοινωνίας (Contact)
 Ροή: `GET /contact` → συμπλήρωση ονοματεπώνυμου, e-mail, τηλεφώνου, μηνύματος (`@MessageConstraint`: 5–100 χαρακτήρες) → `POST /contact` → αποστολή email τόσο στον διαχειριστή όσο και επιβεβαίωσης στον χρήστη.
 
-| Φόρμα Επικοινωνίας | Επιτυχής Αποστολή |
-| :---: | :---: |
-| ![Φόρμα Επικοινωνίας](docs/screenshots/contact-form.png) | ![Επιβεβαίωση Αποστολής](docs/screenshots/contact-success.png) |
+| Φόρμα Επικοινωνίας | Επιτυχής Αποστολή | Email Επιβεβαίωσης |
+| :---: | :---: | :---: |
+| ![Φόρμα Επικοινωνίας](https://github.com/user-attachments/assets/b2faed25-3c2c-47bd-9b22-a091a5e678e5) | ![Επιβεβαίωση Αποστολής](https://github.com/user-attachments/assets/57de81cd-24b2-4416-932a-103ae1f57d84) | ![Επιβεβαίωση Email](https://github.com/user-attachments/assets/b8d1b238-4290-4082-b429-f5741565e821)
 
 ### 🥧 Κατάλογος & Λεπτομέρειες Πίτας (Pies)
 Ροή: `GET /pies` (λίστα όλων των πιτών με εικόνα/τιμή) → `GET /pies/{id}` (λεπτομέρειες, υλικά μέσω `findIngredientsOfPie`, βραβεία) → `POST /pies/{id}` (προσθήκη ποσότητας στο καλάθι της session, redirect σε `/buy`).
