@@ -35,41 +35,41 @@ The following list is derived from analyzing the actual `import` statements in t
 
 ---
 
-## 📋 Πίνακας Περιεχομένων
+## Table of Contents
 
-### Α. Εισαγωγή
-- [🍽️ Τι Είναι το PitosPies](#️-τι-είναι-το-pitospies)
-- [🛠️ Τεχνολογίες που Χρησιμοποιήθηκαν (σύνοψη)](#️-τεχνολογίες-που-χρησιμοποιήθηκαν-σύνοψη)
+### A. Introduction
+- [What is PitosPies](#what-is-pitospies)
+- [Technologies Used (summary)](#technologies-used-summary)
 
-### Β. Στιγμιότυπα Λειτουργιών
-- [📸 Screenshots](#-στιγμιότυπα-εφαρμογής-screenshots)
-  - [🔐 Εγγραφή Χρήστη (Register)](#-εγγραφή-χρήστη-register)
-  - [🔑 Σύνδεση Χρήστη (Login)](#-σύνδεση-χρήστη-login)
-  - [🔁 Ξεχάσατε τον Κωδικό; (Forgot / Reset Password)](#-ξεχάσατε-τον-κωδικό-forgot--reset-password)
-  - [📞 Φόρμα Επικοινωνίας (Contact)](#-φόρμα-επικοινωνίας-contact)
-  - [🥧 Κατάλογος & Λεπτομέρειες Πίτας (Pies)](#-κατάλογος--λεπτομέρειες-πίτας-pies)
-  - [🏬 Κατάστημα (Store)](#-κατάστημα-store)
-  - [🛒 Δημιουργία Παραγγελίας (Order / Buy)](#-δημιουργία-παραγγελίας-order--buy)
+### B. Feature Screenshots
+- [Screenshots](#application-screenshots)
+  - [User Registration (Register)](#user-registration-register)
+  - [User Login](#user-login)
+  - [Forgot / Reset Password](#forgot--reset-password)
+  - [Contact Form](#contact-form)
+  - [Pie Catalog & Details](#pie-catalog--details)
+  - [Store](#store)
+  - [Order Creation (Order / Buy)](#order-creation-order--buy)
 
-### Γ. Τεχνική Τεκμηρίωση
-- [🛠️ Στοίβα Τεχνολογιών (αναλυτικά)](#️-στοίβα-τεχνολογιών-αναλυτικά)
-- [📁 Δομή Project](#-δομή-project)
-- [🗄️ Μοντέλο Δεδομένων & Βάση](#️-μοντέλο-δεδομένων--βάση)
-- [🔒 Ασφάλεια & Authentication](#-ασφάλεια--authentication)
-- [🌐 Routes / Endpoints (πλήρης λίστα)](#-routes--endpoints-πλήρης-λίστα)
-- [🧪 Custom Validation Engine](#-custom-validation-engine)
-- [⚙️ Service Layer](#️-service-layer)
-- [✉️ Email & SMS](#️-email--sms)
-- [🌍 Internationalization (i18n) — πραγματική κατάσταση](#-internationalization-i18n--πραγματική-κατάσταση)
-- [📊 Μετρήσεις Επισκεψιμότητας](#-μετρήσεις-επισκεψιμότητας)
+### C. Technical Documentation
+- [Tech Stack (detailed)](#tech-stack-detailed)
+- [Project Structure](#project-structure)
+- [Data Model & Database](#data-model--database)
+- [Security & Authentication](#security--authentication)
+- [Routes / Endpoints (complete list)](#routes--endpoints-complete-list)
+- [Custom Validation Engine](#custom-validation-engine)
+- [Service Layer](#service-layer)
+- [Email & SMS](#email--sms)
+- [Internationalization (i18n) — actual status](#internationalization-i18n--actual-status)
+- [Traffic Metrics](#traffic-metrics)
 
-### Δ. Λειτουργία & Εκτέλεση
-- [🚀 Ρύθμιση & Εκτέλεση](#-ρύθμιση--εκτέλεση)
+### D. Operation & Execution
+- [Setup & Execution](#setup--execution)
 
-### Ε. Παράρτημα
-- [🩹 Γνωστά Θέματα / Τεχνικό Χρέος](#-γνωστά-θέματα--τεχνικό-χρέος)
-- [✅ Τι διορθώθηκε σε σχέση με το αρχικό README](#-τι-διορθώθηκε-σε-σχέση-με-το-αρχικό-readme)
-- [📝 Credits](#-credits)
+### E. Appendix
+- [Known Issues / Technical Debt](#known-issues--technical-debt)
+- [What was fixed relative to the original README](#what-was-fixed-relative-to-the-original-readme)
+- [Credits](#credits)
 
 ---
 
