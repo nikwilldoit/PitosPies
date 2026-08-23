@@ -1,6 +1,6 @@
-# 🥧 **PitosPies** - Traditional Greek Pie Web Application
+# 🥧 **PitosPies** - A Spring Boot Web Application for E-Commerce and Order Management
 
-**PitosPies** is a **Spring Boot Web Application** for ordering traditional Greek pies online. The application provides a complete customer journey from browsing the pie catalog to creating an order, together with user authentication, email verification, password recovery, validation, and a basic administration area.
+**PitosPies** is a **Spring Boot Web Application** designed for online ordering and order management, with a focus on traditional Greek pies. The application provides a complete customer journey, from browsing the product catalog and managing a shopping cart to placing and reordering orders. It also includes user authentication, email verification, password recovery, input validation, email notifications, and a basic administration area.
 
 ## Features
 
