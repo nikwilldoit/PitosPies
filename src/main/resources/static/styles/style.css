@@ -573,7 +573,7 @@ main h1 {
 aside {
   width: 350px;
   margin: 0 auto;
-  min-height: 500px;
+  min-height: 450px;
   position: relative;
   perspective: 1000px;
   /* 3d transform */
@@ -589,7 +589,7 @@ aside .offer {
   transform: translateZ(-1px) rotateY(-180deg);
 }
 aside .front {
-  height: 500px;
+  height: 450px;
   background-color: white;
 }
 aside .flipping-card:hover {
@@ -612,7 +612,7 @@ aside div.flipping-card .offer {
   justify-content: flex-start;
   align-items: center;
   width: 300px;
-  height: 500px;
+  height: 450px;
   margin: auto;
   box-shadow: black 0 0 3px;
 }
