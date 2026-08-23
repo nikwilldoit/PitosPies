@@ -58,7 +58,15 @@ public class BuyController {
         model.addAttribute("areas", areas);
         model.addAttribute("pies", pies);
 
-        FormDataOrder formDataOrder = new FormDataOrder();
+        FormDataOrder formDataOrder;
+
+        if(sessionData.getUser()==null){
+            formDataOrder = new FormDataOrder();
+        }
+        else{
+            formDataOrder = new FormDataOrder(sessionData.getUser());
+        }
+
         formDataOrder.setOrder(sessionData.getOrder());
         model.addAttribute("formDataOrder", formDataOrder);
 

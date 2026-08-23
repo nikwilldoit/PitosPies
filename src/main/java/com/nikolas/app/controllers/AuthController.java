@@ -9,8 +9,10 @@ import com.nikolas.app.repositories.UserRepository;
 import com.nikolas.app.services.AuthService;
 import com.nikolas.app.services.VisitsMetricsService;
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -44,10 +46,14 @@ public class AuthController {
     private int pageVisits = 0;
 
     @GetMapping("/login")
-    public String handleRequest(Model model, @Param("status") String status) throws IOException, MessagingException {
+    public String handleRequest(Model model, @Param("status") String status, @Param("previous") String previous,
+                                HttpSession session) throws IOException, MessagingException {
         visitsMetricsService.increaseCounters(model, ++pageVisits);
 
         System.out.println("User : " + sessionData.getUser());
+
+        if (previous!=null)
+            session.setAttribute("previous", previous);
 
         if (status!=null && status.equals("wrongCredentials")) {
             model.addAttribute("status", "wrongCredentials");
@@ -55,19 +61,17 @@ public class AuthController {
         else if (status!=null && status.equals("success")){
             model.addAttribute("status", "success");
 
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            String name = auth.getName();
-            User user = userRepository.findUserByUsername(name);
-            user.setRoles(userRepository.findUserRoles(user.getId()));
-
-            sessionData.setUser(user);
+            if (session.getAttribute("previous")!=null) {
+                String previousPage = (String) session.getAttribute("previous");
+                session.removeAttribute("previous");
+                return "redirect:/" +previousPage;
+            }
         }
         else if (sessionData.getUser()!=null) {
             model.addAttribute("status", "alreadyLoggedIn");
         }
 
         model.addAttribute("formLogin", new FormLogin());
-
         return "login";
     }
 

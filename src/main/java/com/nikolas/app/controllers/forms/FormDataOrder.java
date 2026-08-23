@@ -4,6 +4,7 @@ import com.nikolas.app.controllers.forms.custom_validators.AtLeastOneItemInOrder
 import com.nikolas.app.controllers.forms.custom_validators.OrderItemValuesConstraint;
 import com.nikolas.app.controllers.forms.custom_validators.OrderTimestampConstraint;
 import com.nikolas.app.controllers.forms.custom_validators.TelephoneConstraint;
+import com.nikolas.app.models.User;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -51,4 +52,10 @@ public class FormDataOrder {
 
     @OrderTimestampConstraint(message = "Η παραγγελία μπορεί να γίνει μόνο από 18:00 έως 22:00")
     LocalDateTime stamp;
+
+    public FormDataOrder(User user) {
+        this.fullname = user.getFullname();
+        this.email = user.getEmail();
+        this.tel = user.getTel();
+    }
 }

@@ -26,6 +26,16 @@
 
       <th:block th:unless="${success}">
 
+
+        <th:block th:switch="${@sessionData.user}">
+          <p th:case="${null}">
+            <a th:href="@{/login?previous=buy}">Συνδεθείτε</a> για να δείτε το ιστορικό των παραγγελιών σας (ή να επαναλάβετε κάποια παλιά παραγγελία σας)
+          </p>
+          <p th:case="*">
+            Καλώς ήλθατε <span th:text="${@sessionData.user.fullname}"></span>!
+          </p>
+        </th:block>
+
         <form th:action="@{'/buy'}" th:object="${formDataOrder}" method="POST" class="form buy">
 
           <div class="error-message"  th:if="${#fields.hasErrors()}">
@@ -40,8 +50,7 @@
               <li th:if="${#fields.hasErrors('order')}" th:errors="*{order}"></li>
               <li th:if="${#fields.hasErrors('offer')}" th:errors="*{offer}"></li>
               <li th:if="${#fields.hasErrors('payment')}" th:errors="*{payment}"></li>
-<!--              dixnei thn wra-->
-              <li th:if="${#fields.hasErrors('timestamp')}" th:errors="*{stamp}"></li>
+              <li th:if="${#fields.hasErrors('timestamp')}" th:errors="*{timestamp}"></li>
             </ul>
           </div>
 
