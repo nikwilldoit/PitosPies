@@ -181,7 +181,7 @@ resources/
 ├── application.properties                      # DB + mail config (βλ. προειδοποίηση ασφαλείας παρακάτω)
 ├── project.properties                          # mail.admin=...
 ├── db/
-│   └── Dump20260815.sql                        # SQL dump — ΜΕΡΙΚΩΣ ασύμβατο με τα entities (βλ. παρακάτω)
+│   └── DB_schema.sql                        # SQL dump — ΜΕΡΙΚΩΣ ασύμβατο με τα entities (βλ. παρακάτω)
 ├── messages.properties / messages_el_GR.properties / messages_en_US.properties  # υπάρχουν, αλλά ΔΕΝ χρησιμοποιούνται (δες i18n)
 ├── static/
 │   ├── images/            # spanakopita.jpg, manitaropita.jpg, prasopita.jpg, boureki.jpg, logo.png, store1/2.jpg, social icons...
@@ -216,7 +216,7 @@ resources/
 * **Area** — `id, description` (περιοχές delivery).
 
 ### ⚠️ Ασυμφωνία SQL Dump ↔ Κώδικα (κρίσιμο!)
-Το `resources/db/Dump20260815.sql` που περιλαμβάνεται:
+Το `resources/db/DB_schema.sql` που περιλαμβάνεται:
 * **ΔΕΝ περιέχει** τους πίνακες `area`, `order`, `order_item`, `role`, `user_role` που χρειάζεται η εφαρμογή.
 * Ο πίνακας `user` που περιέχει έχει στήλες `id, username, password, session` — **δεν ταιριάζει** με το entity `User` (που χρειάζεται και `fullname, email, tel, status, code`).
 * Περιέχει και άσχετους πίνακες (`car`, `degree`, `identity`, `person`, `product`) που δεν χρησιμοποιούνται πουθενά στον κώδικα — μοιάζουν με κατάλοιπα από άλλη άσκηση/course project.
@@ -343,7 +343,7 @@ spring.datasource.username=pitos
 spring.datasource.password=pitos
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 ```
-⚠️ Πριν εισάγεις το `Dump20260815.sql`, διάβασε την ενότητα **"Ασυμφωνία SQL Dump ↔ Κώδικα"** παραπάνω — χρειάζεσαι επιπλέον `area`, `order`, `order_item`, `role`, `user_role` και διορθωμένο `user`.
+⚠️ Πριν εισάγεις το `DB_schema.sql`, διάβασε την ενότητα **"Ασυμφωνία SQL Dump ↔ Κώδικα"** παραπάνω — χρειάζεσαι επιπλέον `area`, `order`, `order_item`, `role`, `user_role` και διορθωμένο `user`.
 
 ### 2. Ρύθμιση Email
 Το `application.properties` που ανέβηκε περιέχει **πραγματικό Gmail App Password σε καθαρό κείμενο**. Αυτό είναι σοβαρό θέμα ασφάλειας:
