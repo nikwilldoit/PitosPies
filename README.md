@@ -2,7 +2,7 @@
 
 PitosPies is a Spring Boot web application for ordering traditional Greek pies online. The application provides a complete customer journey from browsing the pie catalog to creating an order, together with user authentication, email verification, password recovery, validation, and a basic administration area.
 
-## ✨ Features
+## Features
 
 ### Customer Features
 
@@ -27,7 +27,7 @@ PitosPies is a Spring Boot web application for ordering traditional Greek pies o
 - View the number of users who have not completed email verification.
 - Manage unverified user accounts.
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 | Category | Technology |
 | :--- | :--- |
@@ -48,9 +48,9 @@ PitosPies is a Spring Boot web application for ordering traditional Greek pies o
 
 > **Note:** The project uses **Spring Data JDBC**, not JPA/Hibernate. Database relationships are handled through Spring Data JDBC mappings and custom SQL queries where required.
 
-## 📸 Application Screenshots
+## Application Screenshots
 
-### 🔐 User Registration
+### User Registration
 
 Registration flow:
 
@@ -60,7 +60,7 @@ Registration flow:
 | :---: | :---: | :---: |
 | ![Registration Form](https://github.com/user-attachments/assets/f8f90919-07b0-4129-9473-326dde78c258) | ![Registration Errors](https://github.com/user-attachments/assets/f5a3f618-0124-40a7-8abd-e66b95639189) | ![Verification Email](https://github.com/user-attachments/assets/26162e05-e631-4d81-ab0e-7cdd12a3014b) |
 
-### 🔑 User Login
+### User Login
 
 Login is handled through Spring Security form login, with success and error states and an optional Remember Me feature.
 
@@ -68,7 +68,7 @@ Login is handled through Spring Security form login, with success and error stat
 | :---: | :---: | :---: |
 | ![Login Form](https://github.com/user-attachments/assets/d7f2ca7b-ab77-48a9-a147-00299da04a70) | ![Successful Login](https://github.com/user-attachments/assets/17d17c9b-46e2-4549-8166-6725149d0156) | ![Invalid Credentials](https://github.com/user-attachments/assets/eb6cee55-2706-42dc-ad39-77f771652731) |
 
-### 🔁 Forgot / Reset Password
+### Forgot / Reset Password
 
 The password recovery flow allows a user to request a verification code by email and then set a new password.
 
@@ -76,7 +76,7 @@ The password recovery flow allows a user to request a verification code by email
 | :---: | :---: | :---: |
 | ![Reset Request](https://github.com/user-attachments/assets/ce6a0277-6db3-4f25-b67a-3eda51e3ffaa) | ![Reset Email](https://github.com/user-attachments/assets/0f94328e-fdb6-4192-8cef-6a38b5b8c067) | ![New Password](https://github.com/user-attachments/assets/2d29b037-f3a9-415d-8268-031ab2d0fcf3) |
 
-### 📞 Contact Form
+### Contact Form
 
 Users can submit their name, email, telephone number, and message through the contact form. The application sends an email notification to the administrator and a confirmation email to the user.
 
@@ -84,7 +84,7 @@ Users can submit their name, email, telephone number, and message through the co
 | :---: | :---: | :---: |
 | ![Contact Form](https://github.com/user-attachments/assets/b2faed25-3c2c-47bd-9b22-a091a5e678e5) | ![Successful Submission](https://github.com/user-attachments/assets/57de81cd-24b2-4416-932a-103ae1f57d84) | ![Confirmation Email](https://github.com/user-attachments/assets/b8d1b238-4290-4082-b429-f5741565e821) |
 
-### 🥧 Pie Catalog & Details
+### Pie Catalog & Details
 
 The catalog is available at `/pies`. Users can open a pie's details page to view its information, ingredients, and awards, and can add a selected quantity to the cart.
 
@@ -92,7 +92,7 @@ The catalog is available at `/pies`. Users can open a pie's details page to view
 | :---: | :---: |
 | ![Pie Catalog](https://github.com/user-attachments/assets/f3534a76-602c-4b97-adfc-305fcbb55734) | ![Pie Details](https://github.com/user-attachments/assets/560e8f19-f5e6-4f86-a6e5-c61af377558b) |
 
-### 🏬 Store
+### Store
 
 The store page provides information about the physical shop, including its address, opening hours, and contact details.
 
@@ -100,7 +100,7 @@ The store page provides information about the physical shop, including its addre
 | :---: |
 | ![Store Page](https://github.com/user-attachments/assets/25112c5b-6295-40c6-b21b-5c5acfafe04e) |
 
-### 🛒 Order Creation & Checkout
+### Order Creation & Checkout
 
 The `/buy` page handles the shopping cart and checkout process.
 
@@ -120,7 +120,7 @@ When an order is successfully submitted, it is stored in the database and confir
 | :---: | :---: | :---: | :---: | :---: |
 | ![Order Form](https://github.com/user-attachments/assets/45971e56-3b82-42e8-9a94-d96a0cec0722) | ![Previous Orders](https://github.com/user-attachments/assets/d8a4258d-1688-474a-8931-c222234b4151) | ![Order Validation](https://github.com/user-attachments/assets/6be4ca21-f976-4f43-987c-e82326dbe907) | ![Successful Order](https://github.com/user-attachments/assets/989f6ce0-c54c-433a-bac1-4453ada086c8) | ![Order Email](https://github.com/user-attachments/assets/6a2ceed2-e089-489b-94b6-671368a8e305) |
 
-## 🗂️ Project Structure
+## Project Structure
 
 The application follows a traditional Spring Boot MVC architecture:
 
@@ -152,7 +152,7 @@ The main application layers are:
 - **Templates** — Thymeleaf views for the web interface.
 - **Static assets** — SCSS/CSS and JavaScript used by the frontend.
 
-## 🗄️ Data Model
+## Data Model
 
 The main domain objects are:
 
@@ -167,7 +167,7 @@ The main domain objects are:
 
 Spring Data JDBC is used for persistence. Collections such as order items and pie awards are mapped using `@MappedCollection`, while some many-to-many relationships are handled through SQL queries.
 
-## 🔒 Security & Authentication
+## Security & Authentication
 
 Authentication and authorization are implemented with Spring Security.
 
@@ -193,7 +193,7 @@ The administration entry point is protected with:
 )
 ```
 
-## 🧪 Validation
+## Validation
 
 The application uses Jakarta Bean Validation together with custom validation constraints.
 
@@ -207,7 +207,7 @@ Implemented validation rules include:
 6. **`@OrderItemValuesConstraint`** — validates pie quantities from 0 to 100.
 7. **`@MessageConstraint`** — validates contact messages between 5 and 100 characters.
 
-## ⚙️ Service Layer
+## Service Layer
 
 ### `AuthService`
 
@@ -235,7 +235,7 @@ Provides the application's Twilio-based SMS integration.
 
 Maintains basic in-memory visit counters for application pages and pies.
 
-## ✉️ Email & Notifications
+## Email & Notifications
 
 Email delivery is implemented through Gmail SMTP using Spring Mail.
 
@@ -249,15 +249,15 @@ The application sends emails for important user and order events, including:
 
 The application also includes a Twilio-based SMS service for notification-related functionality.
 
-## 🌐 Internationalization
+## Internationalization
 
 The project includes message property files for English and Greek locales, providing a foundation for localized application messages.
 
-## 📊 Traffic Metrics
+## Traffic Metrics
 
 `VisitsMetricsService` provides basic in-memory visit statistics for pages and pies. The counters are maintained while the application is running and reset when the application restarts.
 
-## 🌐 Routes / Endpoints
+## Routes / Endpoints
 
 | Method | Path | Controller | Description |
 | :--- | :--- | :--- | :--- |
@@ -283,12 +283,12 @@ The project includes message property files for English and Greek locales, provi
 | GET | `/attr` | `AttrController` | Application/demo endpoint |
 | GET | `/error` | `CustomErrorController` | Custom error page |
 
-## 🚀 Setup & Execution
+## Setup & Execution
 
 ### Prerequisites
 
 - JDK 17 or newer.
-- MySQL 8.0 or a compatible MariaDB installation.
+- MySQL.
 - Maven.
 
 ### 1. Create the Database
@@ -333,19 +333,13 @@ Using Maven:
 mvn spring-boot:run
 ```
 
-Or using the generated JAR:
-
-```bash
-java -jar target/app-0.0.1-SNAPSHOT.jar
-```
-
 The application is available at:
 
 ```text
 http://localhost:8080
 ```
 
-## 🔐 Configuration & Security
+## Configuration & Security
 
 For local development and production environments, sensitive configuration should be supplied through environment variables or another secure secrets mechanism.
 
@@ -356,15 +350,6 @@ In particular, avoid committing:
 - Twilio credentials.
 - Security keys.
 
-Example:
-
-```properties
-DB_USERNAME=your_database_user
-DB_PASSWORD=your_database_password
-MAIL_USERNAME=your_email
-MAIL_APP_PASSWORD=your_app_password
-```
-
 ## 📝 Credits
 
-Developed by **Nikolas Poulopoulos**.
+Developed by [Nikolaos Poulopoulos](https://github.com/nikwilldoit).
