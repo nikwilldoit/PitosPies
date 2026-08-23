@@ -2,46 +2,80 @@
 
 Μια web εφαρμογή **Spring Boot** για online παραγγελίες πιτών από ένα παραδοσιακό αρτοποιείο/πιτσαρία ("PitosPies"). Καλύπτει τον πλήρη κύκλο παραγγελίας (κατάλογος πιτών, καλάθι, checkout), εγγραφή/είσοδο χρηστών με ρόλους (RBAC), custom Bean-Validation κανόνες, αποστολή email, βασικό διαχειριστικό panel και ένα (μη ολοκληρωμένο) module SMS.
 
-> ⚠️ Αυτό το README είναι γραμμένο **βάσει του πραγματικού πηγαίου κώδικα** που ανέβηκε (φάκελος `src/main`), όχι βάσει υποθέσεων. Στο τέλος υπάρχει ειδική ενότητα με όλες τις διορθώσεις σε σχέση με το προηγούμενο κείμενο που μου έστειλες, γιατί περιείχε αρκετές ανακρίβειες (κυρίως γύρω από persistence layer, security rules και i18n).
+> ⚠️ Αυτό το README είναι γραμμένο **βάσει του πραγματικού πηγαίου κώδικα** (φάκελος `src/main`), όχι βάσει υποθέσεων. Στο τέλος υπάρχει ειδική ενότητα με όλες τις διορθώσεις σε σχέση με το προηγούμενο κείμενο, γιατί περιείχε αρκετές ανακρίβειες (κυρίως γύρω από persistence layer, security rules και i18n).
+
+---
+
+## 🍽️ Τι Είναι το PitosPies
+
+Το **PitosPies** είναι ένα ολοκληρωμένο online κατάστημα πώλησης παραδοσιακών ελληνικών πιτών (σπανακόπιτα, μανιταρόπιτα, πρασόπιτα, μπουρέκι κ.λπ.). Ένας επισκέπτης μπορεί να:
+
+* περιηγηθεί στον **κατάλογο πιτών**, να δει τιμή, εικόνα, υλικά και τυχόν βραβεία κάθε πίτας,
+* δει πληροφορίες για το φυσικό **κατάστημα** (τοποθεσία, στοιχεία επικοινωνίας κ.λπ.),
+* κάνει **εγγραφή** λογαριασμού (με επαλήθευση μέσω e-mail) ή να **συνδεθεί** σε υπάρχοντα λογαριασμό,
+* ζητήσει **επαναφορά κωδικού** (forgot password) αν τον ξεχάσει,
+* συνθέσει και υποβάλει μια **παραγγελία** (καλάθι → στοιχεία παράδοσης → τρόπος πληρωμής), είτε ως καλεσμένος είτε ως συνδεδεμένος χρήστης — στη δεύτερη περίπτωση βλέπει και τις 5 τελευταίες παραγγελίες του και μπορεί να τις "επαναλάβει" με ένα κλικ,
+* στείλει μήνυμα μέσω **φόρμας επικοινωνίας**.
+
+Ένας διαχειριστής (`ROLE_ADMIN`) έχει επιπλέον πρόσβαση σε ένα ελάχιστο **admin panel** (`/admin`) απ' όπου μπορεί να διαγράψει λογαριασμούς χρηστών που δεν έχουν ολοκληρώσει την επαλήθευση e-mail τους. Υπάρχει επίσης ένα ξεκίνημα module αποστολής **SMS ειδοποιήσεων** (μέσω Twilio), το οποίο δεν είναι ακόμα λειτουργικό.
+
+## 🛠️ Τεχνολογίες που Χρησιμοποιήθηκαν (σύνοψη)
+
+Η παρακάτω λίστα προκύπτει από ανάλυση των πραγματικών `import` του κώδικα (λεπτομερής πίνακας με αιτιολόγηση στην ενότητα [Στοίβα Τεχνολογιών](#️-στοίβα-τεχνολογιών-αναλυτικά)):
+
+* **Γλώσσα / Runtime:** Java 17+, Spring Boot 3.x (Jakarta EE namespaces)
+* **Web layer:** Spring Web MVC (`@Controller`)
+* **Views:** Thymeleaf (server-side rendering, fragments, `thymeleaf-extras-springsecurity` για CSRF)
+* **Persistence:** **Spring Data JDBC** (όχι JPA/Hibernate)
+* **Βάση δεδομένων:** MySQL (μέσω MySQL Connector/J)
+* **Ασφάλεια:** Spring Security (form login, BCrypt, remember-me, custom `UserDetailsService`)
+* **Validation:** Jakarta Bean Validation + custom validators (7 δικοί μας κανόνες)
+* **E-mail:** Spring Mail / `JavaMailSender` (SMTP μέσω Gmail)
+* **SMS:** Twilio SDK (μη λειτουργικό ακόμα)
+* **Boilerplate:** Lombok
+* **Frontend assets:** SCSS (compiled σε CSS), plain JavaScript
 
 ---
 
 ## 📋 Πίνακας Περιεχομένων
-1. [Επισκόπηση](#-επισκόπηση)
-2. [📸 Στιγμιότυπα Εφαρμογής (Screenshots)](#-στιγμιότυπα-εφαρμογής-screenshots)
-3. [Στοίβα Τεχνολογιών (ακριβής)](#-στοίβα-τεχνολογιών-ακριβής)
-4. [Δομή Project](#-δομή-project)
-5. [Μοντέλο Δεδομένων & Βάση](#-μοντέλο-δεδομένων--βάση)
-6. [Ασφάλεια & Authentication](#-ασφάλεια--authentication)
-7. [Routes / Endpoints (πλήρης λίστα)](#-routes--endpoints-πλήρης-λίστα)
-8. [Custom Validation Engine](#-custom-validation-engine)
-9. [Service Layer](#-service-layer)
-10. [Email & SMS](#-email--sms)
-11. [Internationalization (i18n) — πραγματική κατάσταση](#-internationalization-i18n--πραγματική-κατάσταση)
-12. [Μετρήσεις Επισκεψιμότητας](#-μετρήσεις-επισκεψιμότητας)
-13. [Ρύθμιση & Εκτέλεση](#-ρύθμιση--εκτέλεση)
-14. [Γνωστά Θέματα / Τεχνικό Χρέος](#-γνωστά-θέματα--τεχνικό-χρέος)
-15. [Τι διορθώθηκε σε σχέση με το αρχικό README](#-τι-διορθώθηκε-σε-σχέση-με-το-αρχικό-readme)
 
----
+### Α. Εισαγωγή
+- [🍽️ Τι Είναι το PitosPies](#️-τι-είναι-το-pitospies)
+- [🛠️ Τεχνολογίες που Χρησιμοποιήθηκαν (σύνοψη)](#️-τεχνολογίες-που-χρησιμοποιήθηκαν-σύνοψη)
 
-## 🔍 Επισκόπηση
+### Β. Στιγμιότυπα Λειτουργιών
+- [📸 Screenshots](#-στιγμιότυπα-εφαρμογής-screenshots)
+  - [🔐 Εγγραφή Χρήστη (Register)](#-εγγραφή-χρήστη-register)
+  - [🔑 Σύνδεση Χρήστη (Login)](#-σύνδεση-χρήστη-login)
+  - [🔁 Ξεχάσατε τον Κωδικό; (Forgot / Reset Password)](#-ξεχάσατε-τον-κωδικό-forgot--reset-password)
+  - [📞 Φόρμα Επικοινωνίας (Contact)](#-φόρμα-επικοινωνίας-contact)
+  - [🥧 Κατάλογος & Λεπτομέρειες Πίτας (Pies)](#-κατάλογος--λεπτομέρειες-πίτας-pies)
+  - [🏬 Κατάστημα (Store)](#-κατάστημα-store)
+  - [🛒 Δημιουργία Παραγγελίας (Order / Buy)](#-δημιουργία-παραγγελίας-order--buy)
 
-Η **PitosPies** επιτρέπει σε επισκέπτες να δουν τον κατάλογο πιτών, να δουν λεπτομέρειες/υλικά/βραβεία κάθε πίτας, να ελέγξουν αν η περιοχή τους καλύπτεται από delivery, να κάνουν παραγγελία (με ή χωρίς λογαριασμό) και να στείλουν μήνυμα επικοινωνίας. Οι εγγεγραμμένοι χρήστες βλέπουν τις 5 τελευταίες παραγγελίες τους και μπορούν να τις "επαναλάβουν". Υπάρχει επίσης ένα ελάχιστο admin panel για διαγραφή μη επαληθευμένων εγγραφών χρηστών.
+### Γ. Τεχνική Τεκμηρίωση
+- [🛠️ Στοίβα Τεχνολογιών (αναλυτικά)](#️-στοίβα-τεχνολογιών-αναλυτικά)
+- [📁 Δομή Project](#-δομή-project)
+- [🗄️ Μοντέλο Δεδομένων & Βάση](#️-μοντέλο-δεδομένων--βάση)
+- [🔒 Ασφάλεια & Authentication](#-ασφάλεια--authentication)
+- [🌐 Routes / Endpoints (πλήρης λίστα)](#-routes--endpoints-πλήρης-λίστα)
+- [🧪 Custom Validation Engine](#-custom-validation-engine)
+- [⚙️ Service Layer](#️-service-layer)
+- [✉️ Email & SMS](#️-email--sms)
+- [🌍 Internationalization (i18n) — πραγματική κατάσταση](#-internationalization-i18n--πραγματική-κατάσταση)
+- [📊 Μετρήσεις Επισκεψιμότητας](#-μετρήσεις-επισκεψιμότητας)
 
-Βασικά αρχιτεκτονικά χαρακτηριστικά:
-* **Framework:** Spring Boot, Java (χρήση Jakarta EE namespaces `jakarta.*`, άρα Spring Boot 3.x / Java 17+).
-* **Layering:** Controller → Service/Repository, με φόρμες (`FormXxx`) ως DTOs εισόδου.
-* **Persistence:** **Spring Data JDBC** (όχι JPA/Hibernate — δες παρακάτω).
-* **Security:** Spring Security με BCrypt, custom login/logout handlers, remember-me cookie.
-* **Views:** Thymeleaf server-side rendering, με SCSS/CSS πηγές στο `static/sass`.
-* **Async:** Χρήση `@Async` στα emails (βλ. σημείωση σε "Γνωστά Θέματα" — δεν είναι ενεργοποιημένο σωστά).
+### Δ. Λειτουργία & Εκτέλεση
+- [🚀 Ρύθμιση & Εκτέλεση](#-ρύθμιση--εκτέλεση)
+
+### Ε. Παράρτημα
+- [🩹 Γνωστά Θέματα / Τεχνικό Χρέος](#-γνωστά-θέματα--τεχνικό-χρέος)
+- [✅ Τι διορθώθηκε σε σχέση με το αρχικό README](#-τι-διορθώθηκε-σε-σχέση-με-το-αρχικό-readme)
+- [📝 Credits](#-credits)
 
 ---
 
 ## 📸 Στιγμιότυπα Εφαρμογής (Screenshots)
-
-> Πρόσθεσε τα screenshots σου μέσα στον φάκελο `docs/screenshots/` (ή όποιο path προτιμάς) και άλλαξε τα paths στις εικόνες παρακάτω ώστε να δείχνουν στα δικά σου αρχεία. Η ονομασία των αρχείων παρακάτω είναι ενδεικτική πρόταση, ώστε να μείνει το README οργανωμένο.
 
 ### 🔐 Εγγραφή Χρήστη (Register)
 Ροή: `GET /register` → συμπλήρωση στοιχείων (ονοματεπώνυμο, e-mail, τηλέφωνο, username, password) → validation (`FormRegister` + custom validators `@EmailNotExistsConstraint`, `@UsernameNotExistsConstraint`, `@TelephoneConstraint`) → αποστολή email επαλήθευσης → `GET /register/{code}` για ενεργοποίηση λογαριασμού.
@@ -51,6 +85,7 @@
 | ![Φόρμα Εγγραφής](https://github.com/user-attachments/assets/f8f90919-07b0-4129-9473-326dde78c258) | ![Σφάλματα Εγγραφής](https://github.com/user-attachments/assets/f5a3f618-0124-40a7-8abd-e66b95639189) | ![Email Επαλήθευσης](https://github.com/user-attachments/assets/26162e05-e631-4d81-ab0e-7cdd12a3014b) |
 
 ### 🔑 Σύνδεση Χρήστη (Login)
+Ροή: `GET /login` → `POST /login` (Spring Security form login) → επιτυχία (`/login?status=success`) ή αποτυχία (`/login?status=wrongCredentials`) → προαιρετικά "remember me" (cookie 6 μηνών).
 
 | Φόρμα Login | Επιτυχής Σύνδεση | Λάθος Στοιχεία |
 | :---: | :---: | :---: |
@@ -68,14 +103,14 @@
 
 | Φόρμα Επικοινωνίας | Επιτυχής Αποστολή | Email Επιβεβαίωσης |
 | :---: | :---: | :---: |
-| ![Φόρμα Επικοινωνίας](https://github.com/user-attachments/assets/b2faed25-3c2c-47bd-9b22-a091a5e678e5) | ![Επιτυχής Αποστολή](https://github.com/user-attachments/assets/57de81cd-24b2-4416-932a-103ae1f57d84) | ![Email Επιβεβαίωσης](https://github.com/user-attachments/assets/b8d1b238-4290-4082-b429-f5741565e821)
+| ![Φόρμα Επικοινωνίας](https://github.com/user-attachments/assets/b2faed25-3c2c-47bd-9b22-a091a5e678e5) | ![Επιτυχής Αποστολή](https://github.com/user-attachments/assets/57de81cd-24b2-4416-932a-103ae1f57d84) | ![Email Επιβεβαίωσης](https://github.com/user-attachments/assets/b8d1b238-4290-4082-b429-f5741565e821) |
 
 ### 🥧 Κατάλογος & Λεπτομέρειες Πίτας (Pies)
 Ροή: `GET /pies` (λίστα όλων των πιτών με εικόνα/τιμή) → `GET /pies/{id}` (λεπτομέρειες, υλικά μέσω `findIngredientsOfPie`, βραβεία) → `POST /pies/{id}` (προσθήκη ποσότητας στο καλάθι της session, redirect σε `/buy`).
 
-| Κατάλογος Πιτών | Λεπτομέρειες Πίτας
+| Κατάλογος Πιτών | Λεπτομέρειες Πίτας |
 | :---: | :---: |
-| ![Κατάλογος Πιτών](https://github.com/user-attachments/assets/f3534a76-602c-4b97-adfc-305fcbb55734) | ![Λεπτομέρειες Πίτας](https://github.com/user-attachments/assets/560e8f19-f5e6-4f86-a6e5-c61af377558b)
+| ![Κατάλογος Πιτών](https://github.com/user-attachments/assets/f3534a76-602c-4b97-adfc-305fcbb55734) | ![Λεπτομέρειες Πίτας](https://github.com/user-attachments/assets/560e8f19-f5e6-4f86-a6e5-c61af377558b) |
 
 ### 🏬 Κατάστημα (Store)
 Ροή: `GET /store` — πληροφορίες καταστήματος (π.χ. διεύθυνση, ωράριο, στοιχεία επικοινωνίας του φυσικού καταστήματος).
@@ -102,7 +137,7 @@
 
 ---
 
-## 🛠 Στοίβα Τεχνολογιών (ακριβής)
+## 🛠️ Στοίβα Τεχνολογιών (αναλυτικά)
 
 Η λίστα προκύπτει από τα πραγματικά `import` του κώδικα, όχι από γενική περιγραφή:
 
@@ -181,7 +216,7 @@ resources/
 ├── application.properties                      # DB + mail config (βλ. προειδοποίηση ασφαλείας παρακάτω)
 ├── project.properties                          # mail.admin=...
 ├── db/
-│   └── DB_schema.sql                        # SQL dump — ΜΕΡΙΚΩΣ ασύμβατο με τα entities (βλ. παρακάτω)
+│   └── Dump20260815.sql                        # SQL dump — ΜΕΡΙΚΩΣ ασύμβατο με τα entities (βλ. παρακάτω)
 ├── messages.properties / messages_el_GR.properties / messages_en_US.properties  # υπάρχουν, αλλά ΔΕΝ χρησιμοποιούνται (δες i18n)
 ├── static/
 │   ├── images/            # spanakopita.jpg, manitaropita.jpg, prasopita.jpg, boureki.jpg, logo.png, store1/2.jpg, social icons...
@@ -197,7 +232,7 @@ resources/
 
 ---
 
-## 🗄 Μοντέλο Δεδομένων & Βάση
+## 🗄️ Μοντέλο Δεδομένων & Βάση
 
 ### ⚠️ Σημαντικό: Spring Data JDBC, όχι JPA/Hibernate
 Όλα τα entities (`Pie`, `User`, `Order`, `OrderItem`, `Area`, `Award`, `Role`, `Ingredient`) χρησιμοποιούν annotations του **Spring Data JDBC** (`org.springframework.data.relational.core.mapping.Table`, `org.springframework.data.annotation.Id`, `@MappedCollection`), **όχι** `@Entity`/`@ManyToOne` κ.λπ. του JPA. Αυτό σημαίνει:
@@ -216,7 +251,7 @@ resources/
 * **Area** — `id, description` (περιοχές delivery).
 
 ### ⚠️ Ασυμφωνία SQL Dump ↔ Κώδικα (κρίσιμο!)
-Το `resources/db/DB_schema.sql` που περιλαμβάνεται:
+Το `resources/db/Dump20260815.sql` που περιλαμβάνεται:
 * **ΔΕΝ περιέχει** τους πίνακες `area`, `order`, `order_item`, `role`, `user_role` που χρειάζεται η εφαρμογή.
 * Ο πίνακας `user` που περιέχει έχει στήλες `id, username, password, session` — **δεν ταιριάζει** με το entity `User` (που χρειάζεται και `fullname, email, tel, status, code`).
 * Περιέχει και άσχετους πίνακες (`car`, `degree`, `identity`, `person`, `product`) που δεν χρησιμοποιούνται πουθενά στον κώδικα — μοιάζουν με κατάλοιπα από άλλη άσκηση/course project.
@@ -289,7 +324,7 @@ resources/
 
 ---
 
-## ⚙ Service Layer
+## ⚙️ Service Layer
 
 * **`AuthService`** — υλοποιεί `UserDetailsService`· `registerUser`/`registerAdmin` κάνουν BCrypt encode του password και αποθηκεύουν χρήστη+ρόλο ατομικά (δύο ξεχωριστά statements μέσω `UserRepository.saveWithRole`, όχι σε transaction — βλ. Γνωστά Θέματα).
 * **`MailService`** — γενικό wrapper πάνω στο `JavaMailSender`: text email, HTML email, HTML με inline εικόνες, HTML με attachments, και ένα βοηθητικό `sleep()` (demo/test method για async).
@@ -308,7 +343,7 @@ resources/
 
 ---
 
-## 🌐 Internationalization (i18n) — πραγματική κατάσταση
+## 🌍 Internationalization (i18n) — πραγματική κατάσταση
 
 Υπάρχουν τα αρχεία `messages.properties`, `messages_el_GR.properties`, `messages_en_US.properties`, αλλά:
 * Περιέχουν μόνο 3-4 demo κλειδιά (`welcome.short`, `welcome.message`, `user.greeting`, `typeMismatch.java.lang.Integer`) — **όχι** πλήρη μετάφραση του καταστήματος.
@@ -343,7 +378,7 @@ spring.datasource.username=pitos
 spring.datasource.password=pitos
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 ```
-⚠️ Πριν εισάγεις το `DB_schema.sql`, διάβασε την ενότητα **"Ασυμφωνία SQL Dump ↔ Κώδικα"** παραπάνω — χρειάζεσαι επιπλέον `area`, `order`, `order_item`, `role`, `user_role` και διορθωμένο `user`.
+⚠️ Πριν εισάγεις το `Dump20260815.sql`, διάβασε την ενότητα **"Ασυμφωνία SQL Dump ↔ Κώδικα"** παραπάνω — χρειάζεσαι επιπλέον `area`, `order`, `order_item`, `role`, `user_role` και διορθωμένο `user`.
 
 ### 2. Ρύθμιση Email
 Το `application.properties` που ανέβηκε περιέχει **πραγματικό Gmail App Password σε καθαρό κείμενο**. Αυτό είναι σοβαρό θέμα ασφάλειας:
