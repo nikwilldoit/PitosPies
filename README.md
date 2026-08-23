@@ -118,6 +118,11 @@ When an order is successfully submitted, it is stored in the database and confir
 | :---: | :---: | :---: | :---: | :---: |
 | ![Order Form](https://github.com/user-attachments/assets/45971e56-3b82-42e8-9a94-d96a0cec0722) | ![Previous Orders](https://github.com/user-attachments/assets/d8a4258d-1688-474a-8931-c222234b4151) | ![Order Validation](https://github.com/user-attachments/assets/6be4ca21-f976-4f43-987c-e82326dbe907) | ![Successful Order](https://github.com/user-attachments/assets/989f6ce0-c54c-433a-bac1-4453ada086c8) | ![Order Email](https://github.com/user-attachments/assets/6a2ceed2-e089-489b-94b6-671368a8e305) |
 
+### DataBase
+
+[Mysql Database Schema](src/main/resources/db/DB_schema.sql)
+<img width="844" height="866" alt="pitos_schema" src="https://github.com/user-attachments/assets/297f1a66-3755-4c5d-bff6-b315dc1548cd" />
+
 ## Project Structure
 
 The application follows a traditional Spring Boot MVC architecture:
@@ -283,6 +288,8 @@ The project includes message property files for English and Greek locales, provi
 
 ## Setup & Execution
 
-## 📝 Credits
+[Instructions](https://github.com/nikwilldoit/PitosPies/blob/main/setup-instructions.md)
+
+## Credits
 
 Developed by [Nikolaos Poulopoulos](https://github.com/nikwilldoit).
