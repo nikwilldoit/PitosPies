@@ -156,80 +156,6 @@ The following list is derived from analyzing the actual `import` statements in t
 
 ---
 
-## 📁 Δομή Project
-
-```text
-com.nikolas.app/
-├── AppApplication.java                      # Entry point. Εξαιρεί ρητά το πακέτο "excluded" από το component scan
-├── beans/
-│   └── Counter.java                          # Απλός thread-safe (AtomicInteger) μετρητής επισκέψεων
-├── components/
-│   ├── EmailTemplates.java                   # Χτίζει το περιεχόμενο (text/HTML) των emails
-│   └── SessionData.java                      # @SessionScope bean: τρέχων χρήστης + τρέχον καλάθι (Map<pieId, quantity>)
-├── config/
-│   ├── PasswordEncoderConfig.java             # Bean BCryptPasswordEncoder
-│   ├── WebSecurityConfig.java                 # SecurityFilterChain, authorizeHttpRequests, formLogin, logout, rememberMe
-│   └── interceptors/
-│       ├── CustomLoginSuccessHandler.java     # Μετά το login: φορτώνει User+roles στο SessionData, redirect σε /login?status=success
-│       └── CustomLogoutSuccessHandler.java    # Μετά το logout: καθαρίζει SessionData, redirect σε /do-logout?status=logoutSucceeded
-├── controllers/
-│   ├── AdminController.java                   # GET /admin, GET /admin/{action}
-│   ├── AttrController.java                    # GET /attr — demo/πειραματικό endpoint
-│   ├── AuthController.java                    # /login, /do-logout, /register(+/{code}), /password-reset(+/{code}), /password-reset2
-│   ├── BuyController.java                     # GET/POST /buy — checkout, ιστορικό 5 τελευταίων παραγγελιών
-│   ├── ContactController.java                 # GET/POST /contact
-│   ├── IndexController.java                   # GET /
-│   ├── PiesController.java                    # GET /pies, GET /pies/{id}, POST /pies/{id} (προσθήκη στο καλάθι)
-│   ├── SendSMSController.java                 # GET /send-sms — demo, hardcoded/μη λειτουργικό
-│   ├── StoreController.java                   # GET /store
-│   ├── dtos/
-│   │   └── PreviousOrder.java                 # DTO προβολής παλαιότερης παραγγελίας (inner class OrderItem)
-│   └── forms/
-│       ├── FormDataContact.java
-│       ├── FormDataOrder.java
-│       ├── FormLogin.java
-│       ├── FormPasswordReset.java
-│       ├── FormPasswordReset2.java
-│       ├── FormRegister.java
-│       └── custom_validators/                 # 7 ζεύγη Constraint/Validator (βλ. ενότητα Validation)
-├── excluded/
-│   └── ExcludedController.java                 # ΔΕΝ φορτώνεται ποτέ (εξαιρείται ρητά στο @ComponentScan) — νεκρός κώδικας/sandbox
-├── models/
-│   ├── Area.java, Award.java, Ingredient.java, Order.java, OrderItem.java,
-│   │   Pie.java, Role.java, User.java          # Spring Data JDBC entities (@Table, @Id, @MappedCollection)
-├── repositories/
-│   ├── AreaRepository.java, OrderItemRepository.java, OrderRepository.java,
-│   │   PieRepository.java, RoleRepository.java, UserRepository.java
-├── services/
-│   ├── AuthService.java                        # UserDetailsService + register/registerAdmin (BCrypt hashing)
-│   ├── MailService.java                        # Text/HTML emails, inline images, attachments (JavaMailSender)
-│   ├── SMSService.java                         # Twilio wrapper (μη λειτουργικό, βλ. σχόλια στον κώδικα)
-│   └── VisitsMetricsService.java                # Global μετρητές επισκέψεων ανά controller/ανά πίτα
-└── settings/
-    ├── ConfigBeans.java                        # Bean Counter("totalVisitsCounter")
-    ├── CustomErrorController.java               # /error, χειρισμός 404 κ.λπ.
-    └── GlobalExceptionHandler.java              # @ControllerAdvice για MethodArgumentTypeMismatchException
-
-resources/
-├── application.properties                      # DB + mail config (βλ. προειδοποίηση ασφαλείας παρακάτω)
-├── project.properties                          # mail.admin=...
-├── db/
-│   └── Dump20260815.sql                        # SQL dump — ΜΕΡΙΚΩΣ ασύμβατο με τα entities (βλ. παρακάτω)
-├── messages.properties / messages_el_GR.properties / messages_en_US.properties  # υπάρχουν, αλλά ΔΕΝ χρησιμοποιούνται (δες i18n)
-├── static/
-│   ├── images/            # spanakopita.jpg, manitaropita.jpg, prasopita.jpg, boureki.jpg, logo.png, store1/2.jpg, social icons...
-│   ├── sass/               # πηγαία SCSS (abstracts, components, core, forms, layout, messageboxes, sections)
-│   ├── styles/style.css    # compiled CSS
-│   └── js/slider.js
-└── templates/
-    ├── index.html, pies.html, pie.html, buy.html, contact.html, store.html,
-    │   login.html, logout.html, register.html, password-reset.html, password-reset2.html,
-    │   admin.html, attr.html, excluded.html, error.html
-    └── fragments/ (head.html, header.html, footer.html, aside.html)
-```
-
----
-
 ## 🗄️ Μοντέλο Δεδομένων & Βάση
 
 ### ⚠️ Σημαντικό: Spring Data JDBC, όχι JPA/Hibernate
@@ -247,14 +173,6 @@ resources/
 * **Order** — στοιχεία παραγγελίας (`fullname, address, email, tel, comments, offer, payment, stamp, areaId, userId`) + `orderItem` (`@MappedCollection`). Έχει βοηθητικό constructor που χτίζει `Order` από `FormDataOrder` + το καλάθι της session.
 * **OrderItem** — `orderId, pieId, quantity`.
 * **Area** — `id, description` (περιοχές delivery).
-
-### ⚠️ Ασυμφωνία SQL Dump ↔ Κώδικα (κρίσιμο!)
-Το `resources/db/Dump20260815.sql` που περιλαμβάνεται:
-* **ΔΕΝ περιέχει** τους πίνακες `area`, `order`, `order_item`, `role`, `user_role` που χρειάζεται η εφαρμογή.
-* Ο πίνακας `user` που περιέχει έχει στήλες `id, username, password, session` — **δεν ταιριάζει** με το entity `User` (που χρειάζεται και `fullname, email, tel, status, code`).
-* Περιέχει και άσχετους πίνακες (`car`, `degree`, `identity`, `person`, `product`) που δεν χρησιμοποιούνται πουθενά στον κώδικα — μοιάζουν με κατάλοιπα από άλλη άσκηση/course project.
-
-**Συμπέρασμα:** το dump όπως είναι **δεν αρκεί** για να τρέξει η εφαρμογή out-of-the-box. Θα χρειαστεί είτε να ζητήσεις/βρεις το σωστό/πλήρες dump, είτε να φτιάξεις χειροκίνητα schema (`area`, `order`, `order_item`, `role`, `user_role`, και διορθωμένο `user`) πριν την εκκίνηση. Αν θέλεις, μπορώ να σου φτιάξω ένα πλήρες συμπληρωματικό SQL script που δημιουργεί τους πίνακες που λείπουν, με βάση ακριβώς τα entities/queries του κώδικα.
 
 ---
 
