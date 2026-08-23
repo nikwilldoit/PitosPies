@@ -154,4 +154,15 @@ public class EmailTemplates {
         mailService.sendHtmlEmail(user.getEmail(), "Eπαλήθευση Εγγραφής", text);
     }
 
+    @Async
+    public void sendEmailPasswordReset(String email, String code) throws MessagingException {
+        String text =
+                "<div>Ακολουθήστε τον ακόλουθο σύνδεσμο για να ορίσετε νέο κωδικό: " +
+                        "<a href=\"http://localhost:8080/password-reset/" + code + "\">" +
+                        "http://localhost:8080/password-reset/" + code + "</a>" +
+                        "</div>";
+
+        mailService.sendHtmlEmail(email, "Reset Κωδικού", text);
+    }
+
 }

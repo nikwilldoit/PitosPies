@@ -9,10 +9,11 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
+
     User findUserByUsername(String username);
     User findUserByStatus(String status);
     User findUserByEmail(String email);
-
+    User findUserByCode(String code);
 
 
     @Query("SELECT role.name as role " +
@@ -38,6 +39,5 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Modifying
     @Query("DELETE FROM user WHERE status!='verified'")
     void deleteUnverifiedUsers();
-
 
 }

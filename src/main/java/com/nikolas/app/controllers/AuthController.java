@@ -3,6 +3,8 @@ package com.nikolas.app.controllers;
 import com.nikolas.app.components.EmailTemplates;
 import com.nikolas.app.components.SessionData;
 import com.nikolas.app.controllers.forms.FormLogin;
+import com.nikolas.app.controllers.forms.FormPasswordReset;
+import com.nikolas.app.controllers.forms.FormPasswordReset2;
 import com.nikolas.app.controllers.forms.FormRegister;
 import com.nikolas.app.models.User;
 import com.nikolas.app.repositories.UserRepository;
@@ -115,6 +117,7 @@ public class AuthController {
                     formRegister.getEmail(),
                     formRegister.getTel(),
                     String.valueOf(new Random().nextInt(10000)),
+                    null,
                     null
             );
             emailTemplates.sendEmailCompleteRegister(user);
@@ -140,4 +143,78 @@ public class AuthController {
 
         return "register";
     }
+
+    @GetMapping("/password-reset")
+    public String showPasswordResetForm(Model model) {
+        visitsMetricsService.increaseCounters(model, ++pageVisits);
+
+        model.addAttribute("formPasswordReset", new FormPasswordReset());
+        return "password-reset";
+    }
+
+    @PostMapping("/password-reset")
+    public String handleRequest2(Model model, @Valid @ModelAttribute("formPasswordReset") FormPasswordReset formPasswordReset,
+                                BindingResult bindingResult) throws IOException, MessagingException {
+
+        visitsMetricsService.increaseCounters(model, ++pageVisits);
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("status", "emailNotValid");
+            return "password-reset";
+        }
+        else{
+            model.addAttribute("status", "emailValid");
+            Random r = new Random();
+            String code = String.valueOf(r.nextInt(1000, 2000));
+            User user = userRepository.findUserByEmail(formPasswordReset.getEmail());
+            user.setCode(code);
+            userRepository.save(user);
+
+            emailTemplates.sendEmailPasswordReset(formPasswordReset.getEmail(), code);
+            return "password-reset";
+        }
+    }
+
+    @GetMapping("/password-reset/{code}")
+    public String showPasswordReset2(Model model, @PathVariable String code) {
+        visitsMetricsService.increaseCounters(model, ++pageVisits);
+
+        User user = userRepository.findUserByCode(code);
+        if (user!=null && code.equals(user.getCode())) {
+            FormPasswordReset2 formPasswordReset2 = new FormPasswordReset2();
+            formPasswordReset2.setCode(code);
+            model.addAttribute("formPasswordReset2", formPasswordReset2);
+            return "password-reset2";
+        }
+        else {
+            return "error";
+        }
+    }
+
+    @PostMapping("/password-reset2")
+    public String handleRequest3(Model model, @Valid @ModelAttribute("formPasswordReset2") FormPasswordReset2 formPasswordReset2,
+                                 BindingResult bindingResult) throws IOException, MessagingException {
+        visitsMetricsService.increaseCounters(model, ++pageVisits);
+
+        if (!bindingResult.hasErrors()) {
+            User oldUser = userRepository.findUserByCode(formPasswordReset2.getCode());
+            User user = new User(null,
+                    oldUser.getUsername(),
+                    formPasswordReset2.getPassword(),
+                    oldUser.getFullname(),
+                    oldUser.getEmail(),
+                    oldUser.getTel(),
+                    "verified",
+                    null, null);
+
+            authService.registerUser(user);
+            model.addAttribute("status", "changeDone");
+            return "password-reset2";
+        }
+        else {
+            model.addAttribute("formPasswordReset2", formPasswordReset2);
+            return "password-reset2";
+        }
+    }
+
 }

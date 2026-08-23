@@ -22,6 +22,7 @@ public class User {
     String email;
     String tel;
     String status;
+    String code;
 
     @Transient
     private List<String> roles;

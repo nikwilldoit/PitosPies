@@ -32,9 +32,15 @@
             <a th:href="@{/login?previous=buy}">Συνδεθείτε</a> για να δείτε το ιστορικό των παραγγελιών σας (ή να επαναλάβετε κάποια παλιά παραγγελία σας)
           </p>
           <p th:case="*">
-            Καλώς ήλθατε <span th:text="${@sessionData.user.fullname}"></span>!
+            Καλώς ήλθατε <span th:text="${@sessionData.user.fullname}"></span>! Μπορείτε να επαναλάβετε μία από τις πιο πρόσφατες παραγγελίες σας:
           </p>
+          <ul>
+            <li th:each="order: ${previousOrders}">
+              <a th:href="@{'/buy?orderId=' + ${order.orderId}}" th:text="${order}"></a>
+            </li>
+          </ul>
         </th:block>
+
 
         <form th:action="@{'/buy'}" th:object="${formDataOrder}" method="POST" class="form buy">
 
