@@ -43,7 +43,7 @@
 | Email | Spring Mail / `JavaMailSender` |
 | SMS Integration | Twilio SDK |
 | Boilerplate Reduction | Lombok |
-| Frontend | SCSS + JavaScript |
+| Frontend | Thymeleaf(HTML) + SCSS + JavaScript |
 | Database Driver | MySQL Connector/J |
 
 > **Note:** The project uses **Spring Data JDBC**, not JPA/Hibernate. Database relationships are handled through Spring Data JDBC mappings and custom SQL queries where required.
