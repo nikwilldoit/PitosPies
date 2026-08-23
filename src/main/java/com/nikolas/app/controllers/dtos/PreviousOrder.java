@@ -28,6 +28,8 @@ public class PreviousOrder {
     LocalDateTime stamp;
     List<OrderItem> items;
 
+    Integer orderId;
+
 
     private String getPieName(int id, List<Pie> pies) {
         for (Pie pie: pies)
@@ -36,8 +38,9 @@ public class PreviousOrder {
         return null;
     }
 
-    public PreviousOrder(LocalDateTime stamp, Set<com.nikolas.app.models.OrderItem> orderItemSet, List<Pie> pies) {
+    public PreviousOrder(LocalDateTime stamp, Integer orderId, Set<com.nikolas.app.models.OrderItem> orderItemSet, List<Pie> pies) {
         this.stamp = stamp;
+        this.orderId = orderId;
 
         List<com.nikolas.app.models.OrderItem> listOfItemsInOrder = orderItemSet.stream().toList();
         items = new ArrayList<>();

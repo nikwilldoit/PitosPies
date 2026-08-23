@@ -23,7 +23,7 @@ form {
   }
 
   input[type="text"], input[type="email"], input[type="tel"],
-  input[type="number"], select,
+  input[type="number"], input[type="password"], select,
   textarea {
     background-color: $textBackgroundColor;
     padding: 5px;

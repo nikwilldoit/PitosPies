@@ -42,8 +42,8 @@
                     <label for="txtPassword">Password: </label>
                     <input type="password" id="txtPassword" name="password" th:field="*{password}" maxlength="30" required>
 
-                    <a href="@{/register}">Εγγραφείτε!</a>
-                    <a href="@{/password-reset}">Ξεχάσατε τον κωδικό σας;</a>
+                    <a th:href="@{/register}">Εγγραφείτε!</a>
+                    <a th:href="@{/password-reset}">Ξεχάσατε τον κωδικό σας;</a>
 
                     <!-- CSRF SECURITY-->
                     <input type="hidden" th:name="${_csrf.parameterName}"

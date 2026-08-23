@@ -8,6 +8,11 @@ form.contact {
   row-gap: 10px;
   column-gap: 5px;
 
+  a {
+    text-align: center;
+    grid-column-start: 1;
+    grid-column-end: -1;
+  }
 }
 
 @media screen and (min-width: 769px) { /* laptop */
@@ -15,6 +20,11 @@ form.contact {
     display: grid;
     grid-template-columns: min-content 1fr;
     max-width: 700px;
+
+    p {
+      grid-column-start: 1;
+      grid-column-end: -1;
+    }
   }
 }
 

@@ -10,15 +10,30 @@
     <header th:replace="~{fragments/header :: header(extended=true)}"></header>
 
     <main>
-        <h1>Αρχική Σελίδα</h1>
-        <article>
-            <h2>Φωτογραφία</h2>
-            <p>Καλωσόρισμα</p>
-        </article>
 
-        <aside th:replace="~{fragments/aside :: aside}"></aside>
+        <section class="welcome">
+            <div class="welcome-content">
+                <h1>Καλησπέρα και καλώς ήρθατε!</h1>
+
+                <p>
+                    Ανακαλύψτε τις υπέροχες πίτες μας και βρείτε
+                    την αγαπημένη σας.
+                </p>
+
+                <a class="welcome-button" th:href="@{/pies}">
+                    Δες όλες τις πίτες μας
+                </a>
+            </div>
+
+            <div class="welcome-image-wrapper">
+                <img class="welcome-image"
+                     src="/images/logo.png"
+                     alt="Το λογότυπό μας"/>
+            </div>
+        </section>
 
     </main>
+
 
     <footer th:replace="~{fragments/footer :: footer}"></footer>
 </div>

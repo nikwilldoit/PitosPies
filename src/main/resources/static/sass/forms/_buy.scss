@@ -50,6 +50,7 @@ form.buy {
     grid-template-rows: min-content 1fr;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
+        "error error"
         "info order"
         "info payment"
         "buttons buttons";
@@ -67,6 +68,10 @@ form.buy {
     div.buttons {
       grid-area: buttons;
     };
+
+    .error-message {
+      grid-area: error;
+    }
   }
 }
 
