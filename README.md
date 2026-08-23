@@ -24,13 +24,13 @@ A comprehensive, production-ready Spring Boot web application designed for an on
 
 ## 🔍 Project Overview
 
-The **Nikolas Pies Web Application** (`com.nikolas.app`) is built with Spring Boot to facilitate online ordering of artisanal baked goods and traditional pies. The application caters to both retail customers (browsing products, configuring custom orders, checking delivery availability by area, tracking order history) and administrative personnel (managing store inventory, reviewing order streams, sending SMS updates, and viewing web traffic/visit metrics).
+The **PitosPies Web Application** is built with Spring Boot to facilitate online ordering of artisanal baked goods and traditional pies. The application caters to both retail customers (browsing products, configuring custom orders, checking delivery availability by area, tracking order history) and administrative personnel (managing store inventory, reviewing order streams, sending SMS updates, and viewing web traffic/visit metrics).
 
 ### Key Architectural Highlights:
 * **Framework:** Spring Boot (Java 17/21 compatible).
 * **Architecture Layering:** Standard Controller-Service-Repository (DAO) pattern.
 * **Security Layer:** Spring Security with BCrypt password hashing, session data handling, and custom login/logout success handlers.
-* **Data Persistence:** Spring Data JPA / Hibernate connected to MySQL/MariaDB database (`Dump20260815.sql`).
+* **Data Persistence:** Spring Data JDBC connected to MySQL database (`Dump20260815.sql`).
 * **Custom Validation Framework:** Custom JSR-380 (Bean Validation) annotations and validator implementations (e.g., verifying phone formats, preventing duplicate emails/usernames, validating order timestamp ranges, and ensuring non-empty carts).
 * **Notification System:** Asynchronous email dispatch via Spring Mail (`MailService`) and SMS messaging engine (`SMSService`).
 * **Multi-Language Support:** Full i18n support with fallback properties (`messages.properties`), Greek (`messages_el_GR.properties`), and English (`messages_en_US.properties`).
