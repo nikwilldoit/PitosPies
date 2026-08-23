@@ -1,6 +1,6 @@
-# 🥧 **PitosPies** — Traditional Greek Pie Web Application
+# 🥧 **PitosPies** - Traditional Greek Pie Web Application
 
-**PitosPies** is a **Spring Boot web application** for ordering traditional Greek pies online. The application provides a complete customer journey from browsing the pie catalog to creating an order, together with user authentication, email verification, password recovery, validation, and a basic administration area.
+**PitosPies** is a **Spring Boot Web Application** for ordering traditional Greek pies online. The application provides a complete customer journey from browsing the pie catalog to creating an order, together with user authentication, email verification, password recovery, validation, and a basic administration area.
 
 ## Features
 
