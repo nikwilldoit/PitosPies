@@ -143,25 +143,25 @@ src/main
 
 The main application layers are:
 
-- **Controllers** — handle HTTP requests and application flows.
-- **Services** — contain business logic such as authentication, email delivery, SMS integration, and visit metrics.
-- **Repositories** — provide database access through Spring Data JDBC and SQL queries.
-- **Models** — represent users, pies, orders, ingredients, awards, roles, and delivery areas.
-- **Templates** — Thymeleaf views for the web interface.
-- **Static assets** — SCSS/CSS and JavaScript used by the frontend.
+- **Controllers** - handle HTTP requests and application flows.
+- **Services** - contain business logic such as authentication, email delivery, SMS integration, and visit metrics.
+- **Repositories** - provide database access through Spring Data JDBC and SQL queries.
+- **Models** - represent users, pies, orders, ingredients, awards, roles, and delivery areas.
+- **Templates** - Thymeleaf views for the web interface.
+- **Static assets** - SCSS/CSS and JavaScript used by the frontend.
 
 ## Data Model
 
 The main domain objects are:
 
-- **User** — account information, credentials, verification status, and user details.
-- **Role** — application roles such as `USER` and `ADMIN`.
-- **Pie** — name, price, image, ingredients, and awards.
-- **Ingredient** — ingredients associated with pies.
-- **Award** — awards associated with pies.
-- **Order** — customer, delivery, payment, and order information.
-- **OrderItem** — individual pies and quantities belonging to an order.
-- **Area** — available delivery areas.
+- **User** - account information, credentials, verification status, and user details.
+- **Role** - application roles such as `USER` and `ADMIN`.
+- **Pie** - name, price, image, ingredients, and awards.
+- **Ingredient**  ingredients associated with pies.
+- **Award** - awards associated with pies.
+- **Order** - customer, delivery, payment, and order information.
+- **OrderItem** - individual pies and quantities belonging to an order.
+- **Area** - available delivery areas.
 
 Spring Data JDBC is used for persistence. Collections such as order items and pie awards are mapped using `@MappedCollection`, while some many-to-many relationships are handled through SQL queries.
 
