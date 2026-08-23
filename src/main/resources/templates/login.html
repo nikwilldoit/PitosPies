@@ -1,24 +1,61 @@
 <!DOCTYPE html>
-<html lang="en"
+<html lang="gr"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>The page</title>
-</head>
+<head th:replace="~{fragments/head :: head}"></head>
 
 <body>
-<h2>Login</h2>
-<form th:action="@{/login}" method="POST">
-    <div>
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" value="nikolas" required>
-    </div>
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" value="123456" required>
-    </div>
-    <button type="submit">Login</button>
-</form>
+<div class="container">
+    <header th:replace="~{fragments/header :: header(extended=false)}"></header>
 
+    <main>
+        <h1>Login</h1>
+
+
+        <th:block th:switch="${status}">
+            <article th:case="'success'">
+                <div class="success-message">
+                    Επιτυχής Σύνδεση! Συνεχίστε την πλοήγηση σας στη σελίδα!
+                </div>
+            </article>
+            <article th:case="'alreadyLoggedIn'">
+                <div class="success-message">
+                    Έχετε ήδη πραγματοποιήσει σύνδεση!
+                </div>
+            </article>
+
+            <article th:case="*">
+
+                <div class="error-message" th:if="${status=='wrongCredentials'}">
+                    Τα στοιχεία που δώσατε δεν είναι έγκυρα!
+                </div>
+
+                <form th:action="@{/login}" th:object="${formLogin}" method="POST" class="form contact">
+                    <label for="txtUsername">Username:</label>
+                    <input type="text" id="txtUsername" name="username" th:field="*{username}" maxlength="30" required>
+
+                    <label for="txtPassword">Password: </label>
+                    <input type="password" id="txtPassword" name="password" th:field="*{password}" maxlength="30" required>
+
+                    <a href="@{/register}">Εγγραφείτε!</a>
+                    <a href="@{/password-reset}">Ξεχάσατε τον κωδικό σας;</a>
+
+                    <!--CSRF SECURITY-->
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
+
+                    <input type="submit" value="Αποστολή">
+                </form>
+
+            </article>
+
+        </th:block>
+
+        <aside th:replace="~{fragments/aside :: aside}"></aside>
+
+    </main>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
 </body>
 </html>

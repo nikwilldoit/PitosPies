@@ -1,6 +1,8 @@
 package com.nikolas.app.controllers;
 
 import com.nikolas.app.components.EmailTemplates;
+import com.nikolas.app.components.SessionData;
+import com.nikolas.app.controllers.forms.FormLogin;
 import com.nikolas.app.controllers.forms.FormRegister;
 import com.nikolas.app.models.User;
 import com.nikolas.app.repositories.UserRepository;
@@ -9,6 +11,9 @@ import com.nikolas.app.services.VisitsMetricsService;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,10 +38,36 @@ public class AuthController {
     @Autowired
     private EmailTemplates emailTemplates;
 
+    @Autowired
+    private SessionData sessionData;
+
     private int pageVisits = 0;
 
     @GetMapping("/login")
-    public String handleRequest(Model model) {
+    public String handleRequest(Model model, @Param("status") String status) throws IOException, MessagingException {
+        visitsMetricsService.increaseCounters(model, ++pageVisits);
+
+        System.out.println("User : " + sessionData.getUser());
+
+        if (status!=null && status.equals("wrongCredentials")) {
+            model.addAttribute("status", "wrongCredentials");
+        }
+        else if (status!=null && status.equals("success")){
+            model.addAttribute("status", "success");
+
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String name = auth.getName();
+            User user = userRepository.findUserByUsername(name);
+            user.setRoles(userRepository.findUserRoles(user.getId()));
+
+            sessionData.setUser(user);
+        }
+        else if (sessionData.getUser()!=null) {
+            model.addAttribute("status", "alreadyLoggedIn");
+        }
+
+        model.addAttribute("formLogin", new FormLogin());
+
         return "login";
     }
 

@@ -1,6 +1,7 @@
 package com.nikolas.app.components;
 
 import com.nikolas.app.models.Pie;
+import com.nikolas.app.models.User;
 import com.nikolas.app.repositories.PieRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,7 @@ public class SessionData {
     private PieRepository pieRepository;
 
     private Map<Integer, Integer> order = new HashMap<>();
+    private User user = null;
 
 
     @PostConstruct
@@ -31,5 +33,10 @@ public class SessionData {
         List<Pie> pies = (List<Pie>) pieRepository.findAll();
         for (var pie: pies)
             order.put(pie.getId(), 0);
+    }
+
+    public void resetOrder() {
+        for (var pieId: order.keySet())
+            order.put(pieId, 0);
     }
 }

@@ -35,32 +35,22 @@ public class WebSecurityConfig {
     @Primary
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
-        //requestCache.setMatchingRequestParameterName("login-success");
-        requestCache.setMatchingRequestParameterName(null);
-
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/admin-page", "/administrator-page").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers("/user-page/**").hasAuthority("ROLE_USER")
+                        .requestMatchers("/admin", "/admin/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().permitAll()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/")
+                                .defaultSuccessUrl("/login?status=success")
+                                .failureUrl("/login?status=wrongCredentials")
                                 .permitAll()
                 ).logout(
-                        logout -> logout
+                        logout->logout
                                 .logoutUrl("/logout")
-                                .logoutSuccessUrl("/")
+                                .logoutSuccessUrl("/do-logout?status=logoutSucceeded")
                                 .permitAll()
-                ).requestCache(
-                        cache->cache.requestCache(requestCache)
-                ).rememberMe(rember->rember
-                        .rememberMeCookieName("remember-cookie")
-                        .key("123456")
-                        .tokenValiditySeconds(60*60*24*30*6) //6 months
                 );
         return http.build();
     }

@@ -1,16 +1,33 @@
 <!DOCTYPE html>
-<html lang="en"
+<html lang="gr"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>The page</title>
-</head>
+<head th:replace="~{fragments/head :: head}"></head>
 
 <body>
-<h2>Logout</h2>
-<form th:action="@{/logout}" method="POST">
-    <button type="submit">Logout</button>
-</form>
+<div class="container">
+    <header th:replace="~{fragments/header :: header(extended=false)}"></header>
 
+    <main>
+        <h1>Logout</h1>
+
+        <th:block th:switch="${status}">
+            <article th:case="'logoutSucceeded'">
+                <div class="success-message">
+                    Αποσυνδεθήκατε από τη σελίδα!
+                </div>
+            </article>
+            <article th:case="'alreadyLoggedOut'">
+                <div class="error-message">
+                    Δεν έχετε ενεργή σύνδεση με τη σελίδα!
+                </div>
+            </article>
+            <article th:case="*">
+                <form th:action="@{/logout}" method="POST" class="form contact">
+                    <input type="submit" value="Logout">
+                </form>
+            </article>
+        </th:block>
+    </main>
 </body>
 </html>
