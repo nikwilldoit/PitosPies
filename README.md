@@ -290,7 +290,7 @@ The project includes message property files for English and Greek locales, provi
 
 ## Setup & Execution
 
-[Instructions](https://github.com/nikwilldoit/PitosPies/blob/main/setup-instructions.md)
+[Set Up Instructions](https://github.com/nikwilldoit/PitosPies/blob/main/setup-instructions.md)
 
 ## Credits
 
