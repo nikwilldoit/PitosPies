@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+@Repository
 public interface OrderRepository extends CrudRepository<Order, Integer> {
 
     @Query("SELECT * FROM `order` o WHERE o.user_id = :user_id ORDER BY o.stamp DESC LIMIT 5 ")
